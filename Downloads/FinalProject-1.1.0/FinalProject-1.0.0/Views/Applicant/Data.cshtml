@@ -1,0 +1,178 @@
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {font-family: Arial;}
+
+/* Style the tab */
+.tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+}
+</style>
+</head>
+<body>
+
+<div class="text-center">
+<h2>Applicant Information Form</h2>
+<p>Be Careful with Sensitive Data Information and Privacy</p>
+</div>
+
+<form method="POST" id="form1" enctype="multipart/form-data">
+<button asp-action="Add" asp-controller="Applicant" class="btn btn-success">Save</button>
+<button asp-action="AddNew" asp-controller="Applicant" class="btn btn-success">Save & Add New</button>
+<button type="button" class="btn btn-primary" onclick="window.location.href ='/Employee'">Cancel</button>
+<br>
+<br>
+
+<div class="tab">
+  <button class="tablinks" onclick="openTab(event, 'Profile')" id="defaultopen">Profile</button>
+  <button class="tablinks" onclick="openTab(event, 'Address')">Address</button>
+</div>
+
+
+
+<div id="Profile" class="tabcontent">
+  <input type="file" id="photo" name="photo" onchange="showImagePreview(this)">
+  <img id="imgPreview" alt="Preview Image" style="width: 200px; height: 300px;">
+  <input type="file" id="myPdf" name="cv">
+  <canvas id="pdfViewer"></canvas>
+  <input placeholder="Name" id="name" name="name" required>
+  <input placeholder="Email" id="email" name="email" required>
+  <input placeholder="Phone" id="phone" name="phone" required>
+  <input placeholder="Gender" id="gender" name="gender" required>
+  <input type="datetime" placeholder="date" id="date" name="date" required>
+  <input placeholder="place" id="place" name="place" required>
+</div>
+
+<div id="Address" class="tabcontent">
+  <input placeholder="Address" id="address" name="address" required>
+</div>
+</form>
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
+
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.js"></script>
+  <script type="text/javascript">
+  function showImagePreview(input) {
+  if (input.files && input.files[0]) {
+  var filerdr = new FileReader();
+  filerdr.onload = function (e) {
+  $('#imgPreview').attr('src', e.target.result);
+  }
+  filerdr.readAsDataURL(input.files[0]);
+  }
+  }
+</script>
+
+<script>
+function openTab(evt, log) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(log).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+document.getElementById("defaultopen").click();
+</script>
+   
+<script>
+  // Loaded via <script> tag, create shortcut to access PDF.js exports.
+var pdfjsLib = window['pdfjs-dist/build/pdf'];
+// The workerSrc property shall be specified.
+pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://mozilla.github.io/pdf.js/build/pdf.worker.js';
+
+$("#myPdf").on("change", function(e){
+	var file = e.target.files[0]
+	if(file.type == "application/pdf"){
+		var fileReader = new FileReader();  
+		fileReader.onload = function() {
+			var pdfData = new Uint8Array(this.result);
+			// Using DocumentInitParameters object to load binary data.
+			var loadingTask = pdfjsLib.getDocument({data: pdfData});
+			loadingTask.promise.then(function(pdf) {
+			  console.log('PDF loaded');
+			  
+			  // Fetch the first page
+			  var pageNumber = 1;
+			  pdf.getPage(pageNumber).then(function(page) {
+				console.log('Page loaded');
+				
+				var scale = 1.5;
+				var viewport = page.getViewport({scale: scale});
+
+				// Prepare canvas using PDF page dimensions
+				var canvas = $("#pdfViewer")[0];
+				var context = canvas.getContext('2d');
+				canvas.height = viewport.height;
+				canvas.width = viewport.width;
+
+				// Render PDF page into canvas context
+				var renderContext = {
+				  canvasContext: context,
+				  viewport: viewport
+				};
+				var renderTask = page.render(renderContext);
+				renderTask.promise.then(function () {
+				  console.log('Page rendered');
+				});
+			  });
+			}, function (reason) {
+			  // PDF loading error
+			  console.error(reason);
+			});
+		};
+		fileReader.readAsArrayBuffer(file);
+	}
+});
+</script>
+</body>
+</html> 

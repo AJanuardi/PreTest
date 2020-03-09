@@ -1,0 +1,12 @@
+<a href="/Attendance/DataClockIn" class="btn btn-primary">Clock In</a>
+<a href="/Attendance/DataClockOut" class="btn btn-primary">Clock Out</a>
+
+@{
+    var x = ViewBag.att;
+    foreach (var i in x)
+    {
+        @i.name
+        @i.clockin
+        @i.clockout
+    }
+}

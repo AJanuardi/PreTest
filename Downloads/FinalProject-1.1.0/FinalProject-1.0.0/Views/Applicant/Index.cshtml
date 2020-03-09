@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {box-sizing: border-box}
+
+/* Set height of body and the document to 100% */
+body, html {
+  height: 100%;
+  margin: 0;
+  font-family: Arial;
+}
+
+/* Style tab links */
+.tablink {
+  background-color: #555;
+  color: white;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  font-size: 17px;
+  width: 33.33%;
+}
+
+.tablink:hover {
+  background-color: #777;
+}
+
+/* Style the tab content (and add height:100% for full page content) */
+.tabcontent {
+  color: white;
+  display: none;
+  padding: 100px 20px;
+  height: 100%;
+}
+
+#News {background-color: green;}
+#Contact {background-color: teal;}
+#About {background-color: orange;}
+</style>
+</head>
+<body>
+<a href="/Applicant/Data" class="btn btn-success">Add New Applicant</a>
+<br>
+
+<button class="tablink" onclick="openPage('News', this, 'green')" id="defaultOpen">Unproccessed</button>
+<button class="tablink" onclick="openPage('Contact', this, 'teal')">Psycho Test</button>
+<button class="tablink" onclick="openPage('About', this, 'orange')">Interview</button>
+
+<div id="News" class="tabcontent">
+    <ul>
+    @{
+        var x = ViewBag.app;
+        foreach (var i in x)
+        {
+            if( i.status == "unprocessed")
+            {
+                <li>
+                @i.name
+                @i.email
+                @i.phone
+                <a href='/Applicant/Information/@i.id' class="btn btn-success">Info</a>
+                </li>
+            }
+        }
+    }
+    </ul>
+</div>
+
+<div id="Contact" class="tabcontent">
+  <ul>
+    @{
+        var y = ViewBag.app;
+        foreach (var i in y)
+        {
+            if( i.status == "psychotest")
+            {
+                <li>
+                @i.name
+                @i.email
+                @i.phone
+                <a class="btn btn-primary" href='/Applicant/Information/@i.id'>Info</a>
+                </li>
+            }
+        }
+    }
+    </ul>
+</div>
+
+<div id="About" class="tabcontent">
+  <ul>
+    @{
+        var z = ViewBag.app;
+        foreach (var i in z)
+        {
+            if( i.status == "interview")
+            {
+                <li>
+                @i.name
+                @i.email
+                @i.phone
+                <a class="btn btn-primary" href ='/Applicant/Information/@i.id'>Info</a>
+                </li>
+            }
+        }
+    }
+    </ul>
+</div>
+<script>
+function openPage(pageName,elmnt,color) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablink");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].style.backgroundColor = "";
+  }
+  document.getElementById(pageName).style.display = "block";
+  elmnt.style.backgroundColor = color;
+}
+
+// Get the element with id="defaultOpen" and click on it
+document.getElementById("defaultOpen").click();
+</script>
+   
+</body>
+</html> 

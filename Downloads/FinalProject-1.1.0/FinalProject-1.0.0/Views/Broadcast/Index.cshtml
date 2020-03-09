@@ -1,0 +1,15 @@
+<form method="POST" asp-action="Add" asp-controler="Broadcast">
+<input type="text" placeholder="Title" id="title" name="title">
+<input type="text" placeholder="Body" id="body" name="body">
+<input type="submit">
+</form>
+
+@{
+    var x = ViewBag.broad;
+    foreach (var i in x)
+    {
+        @i.title
+        @i.date
+        @i.body
+    }
+}

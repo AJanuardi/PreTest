@@ -1,0 +1,15 @@
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+@{
+    var x = ViewBag.app;
+    foreach (var i in x)
+    {
+    @i.name
+    <a href="/Applicant/Edit/@i.id" class="btn btn-success">Edit</a>
+    <a href="/Applicant/Delete/@i.id" class="btn btn-danger">Delete</a>
+    <a href="/Applicant/Status/@i.id" class="btn btn-primary">Pass</a>
+    <a href="/Applicant/Fail/@i.id" class="btn btn-warning">Reject</a>
+    }
+}

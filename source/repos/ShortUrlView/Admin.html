@@ -216,7 +216,7 @@ var myChart2 = new Chart(ctx2, {
           var month = document.getElementById("month").value;
           var year = document.getElementById("year").value;
           var json = {"shortid":short,"year":year,"month":month,"day":day}
-          var js = {"short": short}
+          var js = {"sht": short}
           var hasil = JSON.stringify(json);
           var hsl = JSON.stringify(js);
           console.log(hasil);
@@ -238,7 +238,7 @@ var myChart2 = new Chart(ctx2, {
                 alert("Data Successfully Get");
 var ctx = document.getElementById('myChart').getContext('2d');
 var myChart = new Chart(ctx, {
-    type: 'bar',
+    type: 'line',
     data: {
         labels: Object.keys(data),
         datasets: [{

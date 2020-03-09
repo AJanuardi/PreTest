@@ -1,0 +1,37 @@
+<form method="POST" asp-action="Added" asp-controller="LeaveRequest" >
+    <input id="name" name="name" placeholder="name">
+    <input id="position" name="position" placeholder="position">
+    <input id="department" name="department" placeholder="department">
+    <input id="outtime" name="outtime" placeholder="outtime">
+    <input id="intime" name="intime" placeholder="intime">
+    <input type="hidden" id="count" value=1>
+    <input type="submit" id="leave">
+</form>
+
+@section Scripts
+    {
+        <script type="text/javascript">
+           $(document).ready(function () {
+    
+            let connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
+
+            connection.start().then(function() {
+                console.log("Berhasil");
+
+                $('#leave').on('click', function (event) {
+                    let count = $('#count').val();
+                    console.log(count);
+                    connection.invoke("Send", count)
+                        .then(data => {
+                            console.log('Berhasil kirim data')
+                        }).catch(err => {
+                        return console.error(err.toString());
+                    })
+                });
+
+            }).catch(function (err) {
+                return console.error(err.toString());
+            });
+                })
+        </script>
+    }

@@ -1,0 +1,14 @@
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+@{
+    var x = ViewBag.emp;
+    foreach (var i in x)
+    {
+    @i.name
+    <a href="/Employee/Edit/@i.id" class="btn btn-success">Edit</a>
+    <a href="/Employee/Delete/@i.id" class="btn btn-danger">Delete</a>
+    <a href="/Employee/Warning/@i.id" class="btn btn-warning">Warning</a>
+    }
+}

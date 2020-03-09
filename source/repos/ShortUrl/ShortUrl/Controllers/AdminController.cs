@@ -131,15 +131,19 @@ namespace ShortUrl.Controllers
         [HttpPost("Short")]
         public IActionResult Short(IP iP)
         {
-            Console.WriteLine(iP.sht);
-            var x = from i in _appDbContext.Tracks where i.shorturlid == iP.sht select i;
-            var q = x.GroupBy(x => x.ipaddress).Select(g => new { Number = g.Key, Count = g.Count() });
-            Dictionary<string, int> List = new Dictionary<string, int>();
-            foreach (var a in q)
+            if (iP.sht != 0)
             {
-                List.Add(a.Number, a.Count);
+                Console.WriteLine(iP.sht);
+                var x = from i in _appDbContext.Tracks where i.shorturlid == iP.sht select i;
+                var q = x.GroupBy(x => x.ipaddress).Select(g => new { Number = g.Key, Count = g.Count() });
+                Dictionary<string, int> List = new Dictionary<string, int>();
+                foreach (var a in q)
+                {
+                    List.Add(a.Number, a.Count);
+                }
+                return Ok(List);
             }
-            return Ok(List);
+            return Ok("Data IP Tracker Not Available");
 
         }
 

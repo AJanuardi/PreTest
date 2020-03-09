@@ -1,0 +1,168 @@
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {box-sizing: border-box}
+
+/* Set height of body and the document to 100% */
+body, html {
+  height: 100%;
+  margin: 0;
+  font-family: Arial;
+}
+
+/* Style tab links */
+.tablink {
+  background-color: #555;
+  color: white;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  font-size: 17px;
+  width: 33.33%;
+}
+
+.tablink:hover {
+  background-color: #777;
+}
+
+/* Style the tab content (and add height:100% for full page content) */
+.tabcontent {
+  color: white;
+  display: none;
+  padding: 100px 20px;
+  height: 100%;
+}
+
+#News {background-color: green;}
+#Contact {background-color: teal;}
+#About {background-color: orange;}
+</style>
+</head>
+<body>
+<a href="/Employee/Data" class="btn btn-success">Add New Employee</a>
+<a class="btn btn-success" href="/Employee/Export">Export CSV(All)</a>
+<form asp-action="Import" asp-controller="Employee" enctype="multipart/form-data">
+    <input  type="file" id="Upload" name="Upload" value="Upload">
+    <button type="submit" class="btn btn-success">Import</button>
+</form>
+<form method="POST">
+  <input type="text" name="search" id="search" placeholder="Type What You Searching For">
+  <button asp-action="Index" asp-controller="Employee" class="btn btn-success">Search</button>
+  <button asp-action="ExportId" asp-controller="Employee" class="btn btn-success">CSV</button>
+</form>
+<br>
+
+<button class="tablink" onclick="openPage('News', this, 'green')" id="defaultOpen">Permanent</button>
+<button class="tablink" onclick="openPage('Contact', this, 'teal')">Contract</button>
+<button class="tablink" onclick="openPage('About', this, 'orange')">Probation</button>
+
+<div id="News" class="tabcontent">
+    <ul>
+    @{
+        var x = ViewBag.emp;
+        foreach (var i in x)
+        {
+            if( i.status == "Permanent")
+            {
+                <li>
+                @i.name
+                @i.email
+                @i.phone
+                <a href='/Employee/Information/@i.id' class="btn btn-success">Info</a>
+                </li>
+            }
+        }
+    }
+    </ul>
+</div>
+
+<div id="Contact" class="tabcontent">
+  <ul>
+    @{
+        var y = ViewBag.emp;
+        foreach (var i in y)
+        {
+            if( i.status == "Contract")
+            {
+                <li>
+                @i.name
+                @i.email
+                @i.phone
+                <a class="btn btn-primary" href='/Employee/Information/@i.id'>Info</a>
+                </li>
+            }
+        }
+    }
+    </ul>
+</div>
+
+<div id="About" class="tabcontent">
+  <ul>
+    @{
+        var z = ViewBag.emp;
+        foreach (var i in z)
+        {
+            if( i.status == "Probation")
+            {
+                <li>
+                @i.name
+                @i.email
+                @i.phone
+                <a class="btn btn-primary" href ='/Employee/Information/@i.id'>Info</a>
+                </li>
+            }
+        }
+    }
+    </ul>
+</div>
+
+<div class="container">
+<div class="column">
+<div class="col-lg-12 col-sm-5">
+<nav aria-label="...">
+  <ul class="pagination marginleft">
+    @{
+      var paging = ViewBag.page;
+    <li class="page-item">
+      <a class="page-link" href="/Home/Paging?prev=1">Previous</a>
+    </li>
+    <li class="page-item"><a class="page-link" value="1" id="btn1" href="/Employee/Index?_crntpage=1">1</a></li>
+    <li class="page-item"><a class="page-link" value="2" id="btn2" href="/Employee/Index?_crntpage=2">2</a></li>
+    <li class="page-item"><a class="page-link" value="3" id="btn3" href="/Employee/Index?_crntpage=3">3</a></li>
+    <li class="page-item"><a class="page-link" value="4" id="btn4" href="/Employee/Index?_crntpage=4">4</a></li>
+    <li class="page-item"><a class="page-link" value="5" id="btn5" href="/Employee/Index?_crntpage=5">5</a></li>
+    <li class="page-item"><a class="page-link" value="6" id="btn6" href="/Employee/Index?_crntpage=6">6</a></li>
+    <li class="page-item">
+      <a class="page-link" href="/Home/Paging?next=1">Next</a>
+    </li> }
+  </ul>
+
+<script>
+function openPage(pageName,elmnt,color) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablink");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].style.backgroundColor = "";
+  }
+  document.getElementById(pageName).style.display = "block";
+  elmnt.style.backgroundColor = color;
+}
+
+// Get the element with id="defaultOpen" and click on it
+document.getElementById("defaultOpen").click();
+</script>
+   
+</body>
+</html> 

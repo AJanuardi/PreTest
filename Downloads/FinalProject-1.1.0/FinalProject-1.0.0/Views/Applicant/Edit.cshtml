@@ -1,0 +1,38 @@
+@{
+    var x = ViewBag.app;
+    foreach(var i in x)
+    {
+<form method="POST" id="form1" enctype="multipart/form-data">
+<button asp-action="Editor" asp-controller="Applicant" class="btn btn-success">Save</button>
+<button type="button" class="btn btn-primary" onclick="window.location.href ='/Applicant/Information/@i.id'">Cancel</button>
+<br>
+<br>
+
+<div class="tab">
+  <button class="tablinks" onclick="openTab(event, 'Profile')" id="defaultopen">Profile</button>
+  <button class="tablinks" onclick="openTab(event, 'Address')">Address</button>
+</div>
+
+
+
+<div id="Profile" class="tabcontent">
+  <input placeholder="Id" id="id" name="id" value="@i.id" required>
+  <input type="file" id="photo" name="photo" onchange="showImagePreview(this)">
+  <img id="imgPreview" value="@i.photo" alt="Preview Image" style="width: 200px; height: 300px;">
+  <img src="@i.photo" style="width: 200px; height: 300px;">
+  <input type="file" id="cv" name="cv">
+  <input placeholder="Name" id="name" name="name" value="@i.name" required>
+  <input placeholder="Email" id="email" name="email" value="@i.email" required>
+  <input placeholder="Phone" id="phone" name="phone" value="@i.phone" required>
+  <input placeholder="Gender" id="gender" name="gender" value="@i.gender" required>
+  <input placeholder="date" id="date" name="date" value="@i.bhirtdate" required>
+  <input placeholder="place" id="place" name="place" value="@i.bhirtplace" required>
+</div>
+
+<div id="Address" class="tabcontent">
+  <input placeholder="Address" id="address" name="address" value="@i.address" required>
+</div>
+
+</form>
+    }
+}

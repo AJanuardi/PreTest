@@ -1,0 +1,58 @@
+@{
+    var x = ViewBag.emp;
+    foreach(var i in x)
+    {
+<form method="POST" id="form1" enctype="multipart/form-data">
+<button asp-action="Editor" asp-controller="Employee" class="btn btn-success">Save</button>
+<button type="button" class="btn btn-primary" onclick="window.location.href ='/Employee/Information/@i.id'">Cancel</button>
+<br>
+<br>
+
+<div class="tab">
+  <button class="tablinks" onclick="openTab(event, 'Profile')" id="defaultopen">Profile</button>
+  <button class="tablinks" onclick="openTab(event, 'Occupation')">Occupation</button>
+  <button class="tablinks" onclick="openTab(event, 'Address')">Address</button>
+  <button class="tablinks" onclick="openTab(event, 'Emergency')">Emergency</button>
+  <button class="tablinks" onclick="openTab(event, 'Aggrements')">Aggrements</button>
+</div>
+
+
+
+<div id="Profile" class="tabcontent">
+  <input placeholder="Id" id="id" name="id" value="@i.id" value="@i.photo" required>
+  <input type="file" id="photo" name="photo" onchange="showImagePreview(this)">
+  <img id="imgPreview" alt="Preview Image" style="width: 200px; height: 300px;">
+  <img src="@i.photo" style="width: 200px; height: 300px;">
+  <input placeholder="Name" id="name" name="name" value="@i.name" required>
+  <input placeholder="Email" id="email" name="email" value="@i.email" required>
+  <input placeholder="Phone" id="phone" name="phone" value="@i.phone" required>
+  <input placeholder="Gender" id="gender" name="gender" value="@i.gender" required>
+  <input placeholder="date" id="date" name="date" value="@i.bhirtdate" required>
+  <input placeholder="place" id="place" name="place" value="@i.bhirtplace" required>
+</div>
+
+<div id="Occupation" class="tabcontent">
+  <input placeholder="Position" id="position" name="position" value="@i.position" required>
+  <input placeholder="Department" id="department" name="department" value="@i.department" required>
+</div>
+
+<div id="Address" class="tabcontent">
+  <input placeholder="Address" id="address" name="address" value="@i.address" required>
+</div>
+
+<div id="Emergency" class="tabcontent">
+  <input placeholder="Person Name" id="nameugd1" name="nameugd1" value="@i.nameugd1" required>
+  <input placeholder="Emergency 1" id="emergency1" name="emergency1" value="@i.emergency1" required>
+  <input placeholder="Person Name" id="nameugd2" name="nameugd2" value="@i.nameugd2" required>
+  <input placeholder="Emergency 2" id="emergency2" name="emergency2" value="@i.emergency2" required>
+  <input placeholder="Person Name" id="nameugd3" name="nameugd3" value="@i.nameugd3" required>
+  <input placeholder="Emergency 3" id="emergency3" name="emergency3" value="@i.emergency3" required>
+</div>
+
+<div id="Aggrements" class="tabcontent">
+  <input placeholder="Status" id="status" name="status" value="@i.status" required>
+  <input type="datetime" placeholder="Contract" id="contract" name="contract" value="@i.contract" required>
+</div>
+</form>
+    }
+}

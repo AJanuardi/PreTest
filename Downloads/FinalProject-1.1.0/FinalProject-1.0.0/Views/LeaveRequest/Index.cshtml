@@ -1,0 +1,22 @@
+<a href="/LeaveRequest/Add" class="btn btn-primary">Add Leave Request</a>
+
+@{
+    var x = ViewBag.leave;
+    foreach (var i in x)
+    {
+        if (i.status != "reject")
+        {
+        @i.name
+        @i.position
+        @i.department
+        @i.outtime
+        @i.intime
+        @i.status
+        if(i.status != "allowed")
+        {
+           <a href="/LeaveRequest/Allow/@i.id" class="btn btn-success">Allow</a>
+           <a href="/LeaveRequest/Reject/@i.id" class="btn btn-danger">Reject</a>
+        }
+        }
+    }
+}
