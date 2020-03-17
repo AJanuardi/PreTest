@@ -1,0 +1,23 @@
+"Tempat Job Seeker"
+@{
+    var x = ViewBag.sub;
+    if (x != null)
+    {
+        <button onclick="window.location.href='/Home/EditUser'">Profiles</button>
+    }
+}
+<br>
+@{
+    var y = ViewBag.jobs;
+    foreach (var i in y)
+    {
+        @i.title;
+        @i.description
+        @i.requirement
+        @i.informations
+        @i.flyer
+        @i.stardate
+        @i.enddate
+        <a href="/Home/JobInfo/@i.id">Job Detail</a>
+    }
+}

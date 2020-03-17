@@ -1,0 +1,90 @@
+D:\Users\bsi50130\Downloads\Job Vacation\bin\Debug\netcoreapp3.1\appsettings.Development.json
+D:\Users\bsi50130\Downloads\Job Vacation\bin\Debug\netcoreapp3.1\appsettings.json
+D:\Users\bsi50130\Downloads\Job Vacation\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
+D:\Users\bsi50130\Downloads\Job Vacation\bin\Debug\netcoreapp3.1\Job Vacation.exe
+D:\Users\bsi50130\Downloads\Job Vacation\bin\Debug\netcoreapp3.1\Job Vacation.deps.json
+D:\Users\bsi50130\Downloads\Job Vacation\bin\Debug\netcoreapp3.1\Job Vacation.runtimeconfig.json
+D:\Users\bsi50130\Downloads\Job Vacation\bin\Debug\netcoreapp3.1\Job Vacation.runtimeconfig.dev.json
+D:\Users\bsi50130\Downloads\Job Vacation\bin\Debug\netcoreapp3.1\Job Vacation.dll
+D:\Users\bsi50130\Downloads\Job Vacation\bin\Debug\netcoreapp3.1\Job Vacation.pdb
+D:\Users\bsi50130\Downloads\Job Vacation\bin\Debug\netcoreapp3.1\Job Vacation.Views.dll
+D:\Users\bsi50130\Downloads\Job Vacation\bin\Debug\netcoreapp3.1\Job Vacation.Views.pdb
+D:\Users\bsi50130\Downloads\Job Vacation\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\Users\bsi50130\Downloads\Job Vacation\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.JsonPatch.dll
+D:\Users\bsi50130\Downloads\Job Vacation\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+D:\Users\bsi50130\Downloads\Job Vacation\bin\Debug\netcoreapp3.1\Microsoft.Bcl.AsyncInterfaces.dll
+D:\Users\bsi50130\Downloads\Job Vacation\bin\Debug\netcoreapp3.1\Microsoft.Bcl.HashCode.dll
+D:\Users\bsi50130\Downloads\Job Vacation\bin\Debug\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+D:\Users\bsi50130\Downloads\Job Vacation\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.dll
+D:\Users\bsi50130\Downloads\Job Vacation\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Abstractions.dll
+D:\Users\bsi50130\Downloads\Job Vacation\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Design.dll
+D:\Users\bsi50130\Downloads\Job Vacation\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Relational.dll
+D:\Users\bsi50130\Downloads\Job Vacation\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.SqlServer.dll
+D:\Users\bsi50130\Downloads\Job Vacation\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Caching.Abstractions.dll
+D:\Users\bsi50130\Downloads\Job Vacation\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Caching.Memory.dll
+D:\Users\bsi50130\Downloads\Job Vacation\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.dll
+D:\Users\bsi50130\Downloads\Job Vacation\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.Abstractions.dll
+D:\Users\bsi50130\Downloads\Job Vacation\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.Binder.dll
+D:\Users\bsi50130\Downloads\Job Vacation\bin\Debug\netcoreapp3.1\Microsoft.Extensions.DependencyInjection.dll
+D:\Users\bsi50130\Downloads\Job Vacation\bin\Debug\netcoreapp3.1\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+D:\Users\bsi50130\Downloads\Job Vacation\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Logging.dll
+D:\Users\bsi50130\Downloads\Job Vacation\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Logging.Abstractions.dll
+D:\Users\bsi50130\Downloads\Job Vacation\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Options.dll
+D:\Users\bsi50130\Downloads\Job Vacation\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Primitives.dll
+D:\Users\bsi50130\Downloads\Job Vacation\bin\Debug\netcoreapp3.1\Microsoft.Identity.Client.dll
+D:\Users\bsi50130\Downloads\Job Vacation\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\Users\bsi50130\Downloads\Job Vacation\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Logging.dll
+D:\Users\bsi50130\Downloads\Job Vacation\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.dll
+D:\Users\bsi50130\Downloads\Job Vacation\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\Users\bsi50130\Downloads\Job Vacation\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Tokens.dll
+D:\Users\bsi50130\Downloads\Job Vacation\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
+D:\Users\bsi50130\Downloads\Job Vacation\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
+D:\Users\bsi50130\Downloads\Job Vacation\bin\Debug\netcoreapp3.1\System.Configuration.ConfigurationManager.dll
+D:\Users\bsi50130\Downloads\Job Vacation\bin\Debug\netcoreapp3.1\System.IdentityModel.Tokens.Jwt.dll
+D:\Users\bsi50130\Downloads\Job Vacation\bin\Debug\netcoreapp3.1\System.Runtime.Caching.dll
+D:\Users\bsi50130\Downloads\Job Vacation\bin\Debug\netcoreapp3.1\System.Security.Cryptography.ProtectedData.dll
+D:\Users\bsi50130\Downloads\Job Vacation\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\Microsoft.Data.SqlClient.dll
+D:\Users\bsi50130\Downloads\Job Vacation\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\Microsoft.Data.SqlClient.dll
+D:\Users\bsi50130\Downloads\Job Vacation\bin\Debug\netcoreapp3.1\runtimes\win-arm64\native\sni.dll
+D:\Users\bsi50130\Downloads\Job Vacation\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\sni.dll
+D:\Users\bsi50130\Downloads\Job Vacation\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\sni.dll
+D:\Users\bsi50130\Downloads\Job Vacation\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.0\System.Runtime.Caching.dll
+D:\Users\bsi50130\Downloads\Job Vacation\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
+D:\Users\bsi50130\Downloads\Job Vacation\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+D:\Users\bsi50130\Downloads\Job Vacation\obj\Debug\netcoreapp3.1\Job Vacation.csprojAssemblyReference.cache
+D:\Users\bsi50130\Downloads\Job Vacation\obj\Debug\netcoreapp3.1\staticwebassets\Job Vacation.StaticWebAssets.Manifest.cache
+D:\Users\bsi50130\Downloads\Job Vacation\obj\Debug\netcoreapp3.1\staticwebassets\Job Vacation.StaticWebAssets.xml
+D:\Users\bsi50130\Downloads\Job Vacation\obj\Debug\netcoreapp3.1\Job Vacation.MvcApplicationPartsAssemblyInfo.cache
+D:\Users\bsi50130\Downloads\Job Vacation\obj\Debug\netcoreapp3.1\Job Vacation.RazorAssemblyInfo.cache
+D:\Users\bsi50130\Downloads\Job Vacation\obj\Debug\netcoreapp3.1\Job Vacation.RazorAssemblyInfo.cs
+D:\Users\bsi50130\Downloads\Job Vacation\obj\Debug\netcoreapp3.1\Job Vacation.AssemblyInfoInputs.cache
+D:\Users\bsi50130\Downloads\Job Vacation\obj\Debug\netcoreapp3.1\Job Vacation.AssemblyInfo.cs
+D:\Users\bsi50130\Downloads\Job Vacation\obj\Debug\netcoreapp3.1\Job Vacation.TagHelpers.input.cache
+D:\Users\bsi50130\Downloads\Job Vacation\obj\Debug\netcoreapp3.1\Job Vacation.TagHelpers.output.cache
+D:\Users\bsi50130\Downloads\Job Vacation\obj\Debug\netcoreapp3.1\Job Vacation.RazorCoreGenerate.cache
+D:\Users\bsi50130\Downloads\Job Vacation\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Error.cshtml.g.cs
+D:\Users\bsi50130\Downloads\Job Vacation\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Layout.cshtml.g.cs
+D:\Users\bsi50130\Downloads\Job Vacation\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
+D:\Users\bsi50130\Downloads\Job Vacation\obj\Debug\netcoreapp3.1\Razor\Views\_ViewImports.cshtml.g.cs
+D:\Users\bsi50130\Downloads\Job Vacation\obj\Debug\netcoreapp3.1\Razor\Views\_ViewStart.cshtml.g.cs
+D:\Users\bsi50130\Downloads\Job Vacation\obj\Debug\netcoreapp3.1\Job Vacation.RazorTargetAssemblyInfo.cache
+D:\Users\bsi50130\Downloads\Job Vacation\obj\Debug\netcoreapp3.1\Job Vacation.RazorTargetAssemblyInfo.cs
+D:\Users\bsi50130\Downloads\Job Vacation\obj\Debug\netcoreapp3.1\Job Vacation.Views.pdb
+D:\Users\bsi50130\Downloads\Job Vacation\obj\Debug\netcoreapp3.1\Job Vacation.csproj.CopyComplete
+D:\Users\bsi50130\Downloads\Job Vacation\obj\Debug\netcoreapp3.1\Job Vacation.dll
+D:\Users\bsi50130\Downloads\Job Vacation\obj\Debug\netcoreapp3.1\Job Vacation.pdb
+D:\Users\bsi50130\Downloads\Job Vacation\bin\Debug\netcoreapp3.1\MailKit.dll
+D:\Users\bsi50130\Downloads\Job Vacation\bin\Debug\netcoreapp3.1\MimeKit.dll
+D:\Users\bsi50130\Downloads\Job Vacation\bin\Debug\netcoreapp3.1\NETCore.MailKit.dll
+D:\Users\bsi50130\Downloads\Job Vacation\bin\Debug\netcoreapp3.1\BouncyCastle.Crypto.dll
+D:\Users\bsi50130\Downloads\Job Vacation\obj\Debug\netcoreapp3.1\Razor\Views\Home\AddCompany.cshtml.g.cs
+D:\Users\bsi50130\Downloads\Job Vacation\obj\Debug\netcoreapp3.1\Razor\Views\Home\AddUser.cshtml.g.cs
+D:\Users\bsi50130\Downloads\Job Vacation\obj\Debug\netcoreapp3.1\Razor\Views\Home\Admin.cshtml.g.cs
+D:\Users\bsi50130\Downloads\Job Vacation\obj\Debug\netcoreapp3.1\Razor\Views\Home\EditCompany.cshtml.g.cs
+D:\Users\bsi50130\Downloads\Job Vacation\obj\Debug\netcoreapp3.1\Razor\Views\Home\EditUser.cshtml.g.cs
+D:\Users\bsi50130\Downloads\Job Vacation\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index.cshtml.g.cs
+D:\Users\bsi50130\Downloads\Job Vacation\obj\Debug\netcoreapp3.1\Razor\Views\Home\Joblist.cshtml.g.cs
+D:\Users\bsi50130\Downloads\Job Vacation\obj\Debug\netcoreapp3.1\Razor\Views\Home\Jobvacation.cshtml.g.cs
+D:\Users\bsi50130\Downloads\Job Vacation\obj\Debug\netcoreapp3.1\Razor\Views\Home\AddJob.cshtml.g.cs
+D:\Users\bsi50130\Downloads\Job Vacation\obj\Debug\netcoreapp3.1\Razor\Views\Home\JobInfo.cshtml.g.cs
+D:\Users\bsi50130\Downloads\Job Vacation\obj\Debug\netcoreapp3.1\Razor\Views\Home\DataUser.cshtml.g.cs
