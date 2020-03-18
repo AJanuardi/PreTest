@@ -1,0 +1,58 @@
+@{
+    var y = ViewBag.sub;
+    var x = ViewBag.job;
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12" style="text-align: right;">
+                <h4>Job Flyer: </h4>
+                    <img src="@x.flyer" style="width: 100px; height: 200px;">
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6" style="text-align: left;">
+    <h4>Job Title: </h4>
+    <h6>@x.title</h6>
+    <br>
+    <h4>Job Description: </h4>
+    <h6>@x.description</h6>
+    <br>
+    <h4>Job Requirement: </h4>
+    <h6>@x.requirement</h6>
+    <br>
+    <h4>Job Information: </h4>
+    <h6>@x.informations</h6>
+    <br>
+    <input id="1" value="@y" hidden>
+    <input id="2" value="@x.id" hidden>
+    <button onclick=takeData(this) class="btn btn-success">Take Job</button>
+            </div>
+    <div class="col-md-6" style="text-align: right;">
+    <h4>Start Date: </h4>
+    <h6>@x.stardate</h6>
+    <br>
+    <h4>End Date: </h4>
+    <h6>@x.enddate</h6>
+    <br>
+    </div>
+    </div>
+    </div>
+}
+
+<script type="text/javascript">
+function takeData(btn)
+{
+var id = document.getElementById(1).value;
+var idjob = document.getElementById(2).value;
+    if(id != 00000000-0000-0000-0000-000000000000)
+    {
+        window.location.href='/Home/TakeJob?idjob='+idjob+'&idseeker='+id;
+    }
+    else
+    {
+        window.location.href='/Home/Fail'
+    }
+}
+</script>

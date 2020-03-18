@@ -2,88 +2,174 @@
     ViewData["Title"] = "Home Page";
 }
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-body {font-family: Arial;}
-
-/* Style the tab */
-.tab {
+  .upload-btn-wrapper {
+  position: relative;
   overflow: hidden;
-  border: 1px solid #ccc;
-  background-color: #f1f1f1;
+  display: inline-block;
 }
 
-/* Style the buttons inside the tab */
-.tab button {
-  background-color: inherit;
-  float: left;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  padding: 14px 16px;
-  transition: 0.3s;
-  font-size: 17px;
+.btnx {
+  border: 2px solid gray;
+  color: gray;
+  background-color: white;
+  padding: 8px 20px;
+  border-radius: 8px;
+  font-size: 10px;
+  font-weight: bold;
 }
 
-/* Change background color of buttons on hover */
-.tab button:hover {
-  background-color: #ddd;
-}
-
-/* Create an active/current tablink class */
-.tab button.active {
-  background-color: #ccc;
-}
-
-/* Style the tab content */
-.tabcontent {
-  display: none;
-  padding: 6px 12px;
-  border: 1px solid #ccc;
-  border-top: none;
+.upload-btn-wrapper input[type=file] {
+  font-size: 20px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
 }
 </style>
-</head>
+
+<!DOCTYPE html>
+<html>
+<title></title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <body>
 
-<div class="text-center">
-<h2>Applicant Information Form</h2>
-<p>Be Careful with Sensitive Data Information and Privacy</p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="text-center">
+        <h2><b>Employee Information Form</b></h2>
+        <p>Be Careful with Sensitive Data Information and Privacy</p>
+      </div>
+    </div>
+  </div>
+</div>
+<br>
+
+<div class="w3-sidebar w3-bar-block w3-black w3-card" style="width:130px; height: 275px">
+  <h5 class="w3-bar-item">Biodata</h5>
+  <button class="w3-bar-item w3-button tablink" onclick="openLink(event, 'Fade')">Profile</button>
 </div>
 
-<form method="POST" id="form1" enctype="multipart/form-data">
-<button asp-action="Add" asp-controller="Applicant" class="btn btn-success">Save</button>
-<button asp-action="AddNew" asp-controller="Applicant" class="btn btn-success">Save & Add New</button>
-<button type="button" class="btn btn-primary" onclick="window.location.href ='/Employee'">Cancel</button>
+<form method="POST" enctype="multipart/form-data">
+<div class="container">
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-6">
+    <button asp-action="Add" asp-controller="Applicant" class="btn btn-success">Save</button>
+    <button asp-action="AddNew" asp-controller="Applicant" class="btn btn-success">Save & Add New</button>
+    <button type="button" class="btn btn-primary" onclick="window.location.href ='/Applicant'">Cancel</button>
+    </div>
+  </div>
+</div>
 <br>
 <br>
 
-<div class="tab">
-  <button class="tablinks" onclick="openTab(event, 'Profile')" id="defaultopen">Profile</button>
-  <button class="tablinks" onclick="openTab(event, 'Address')">Address</button>
+<div style="margin-left:170px">
+  <div class="w3-padding"><b>Fill this form completely and correct</b></div>
+
+  <div id="Fade" class="w3-container city w3-animate-left" style="display:none">
+    <h2>Profile</h2>
+    <div class="row">
+      <div class="col">
+        <div id="1">
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <img src="/images/paper.svg" style="width: 120px; height: 150px;">
+        </div>
+        <canvas style="width: 250px; height: 300px" id="pdfViewer"></canvas>
+      </div>
+      <div class="col">
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <img id="imgPreview" alt="Preview Image" src="/images/img.svg" style="width: 120px; height: 180px;">
+      </div>
+    </div>
+    <br>
+    
+    <div class="row">
+    <div class="col">
+    <div class="upload-btn-wrapper">
+    <button class="btnx">Upload your CV</button>
+    <input type="file" id="myPdf" name="cv">
+    </div>
+    </div>
+    <div class="col">
+    <div class="upload-btn-wrapper">
+    <button class="btnx">Upload your Photo</button>
+    <input type="file" name="photo" id="photo" onchange="showImagePreview(this)">
+    </div>
+    </div>
+    </div>
+    </div>
+    <br>
+    <br>
+
+    <div class="row">
+      <div class="col">
+        <label>Full Name</label>
+        <input class="form-control" placeholder="Name" id="name" name="name" required>
+      </div>
+      <div class="col">
+        <label>Email</label>
+        <input class="form-control" placeholder="Email" id="email" name="email" required>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col">
+        <label>Phone Number</label>
+        <input class="form-control" placeholder="Phone" id="phone" name="phone" required>
+      </div>
+      <div class="col">
+        <br>
+        <label>Gender</label>
+        <br>
+        <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="gender" id="gender1" value="Male">
+        <label class="form-check-label" for="gender1">Male</label>
+        </div>
+        <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="gender" id="gender2" value="Female">
+        <label class="form-check-label" for="gender2">Female</label>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col">
+        <label>Bhirtdate</label>
+        <input class="form-control" type="date" placeholder="date" id="date" name="date" required>
+      </div>
+      <div class="col">
+        <label>Bhirtplace</label>
+        <input class="form-control" placeholder="Place" id="place" name="place" required>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col">
+        <br>
+        <label>Address</label>
+        <input class="form-control" placeholder="Address" id="address" name="address" required>
+        </div>
+        <div class="col">
+        <br>
+        <label>Position</label>
+        <input class="form-control" placeholder="Position" id="posisi" name="posisi" required>
+        </div>
+    </div>
+  </div>
 </div>
-
-
-
-<div id="Profile" class="tabcontent">
-  <input type="file" id="photo" name="photo" onchange="showImagePreview(this)">
-  <img id="imgPreview" alt="Preview Image" style="width: 200px; height: 300px;">
-  <input type="file" id="myPdf" name="cv">
-  <canvas id="pdfViewer"></canvas>
-  <input placeholder="Name" id="name" name="name" required>
-  <input placeholder="Email" id="email" name="email" required>
-  <input placeholder="Phone" id="phone" name="phone" required>
-  <input placeholder="Gender" id="gender" name="gender" required>
-  <input type="datetime" placeholder="date" id="date" name="date" required>
-  <input placeholder="place" id="place" name="place" required>
-</div>
-
-<div id="Address" class="tabcontent">
-  <input placeholder="Address" id="address" name="address" required>
-</div>
+<br>
 </form>
 
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
@@ -108,20 +194,19 @@ body {font-family: Arial;}
 </script>
 
 <script>
-function openTab(evt, log) {
-  var i, tabcontent, tablinks;
-  tabcontent = document.getElementsByClassName("tabcontent");
-  for (i = 0; i < tabcontent.length; i++) {
-    tabcontent[i].style.display = "none";
+function openLink(evt, animName) {
+  var i, x, tablinks;
+  x = document.getElementsByClassName("city");
+  for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none";
   }
-  tablinks = document.getElementsByClassName("tablinks");
-  for (i = 0; i < tablinks.length; i++) {
-    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  tablinks = document.getElementsByClassName("tablink");
+  for (i = 0; i < x.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" w3-red", "");
   }
-  document.getElementById(log).style.display = "block";
-  evt.currentTarget.className += " active";
+  document.getElementById(animName).style.display = "block";
+  evt.currentTarget.className += " w3-red";
 }
-document.getElementById("defaultopen").click();
 </script>
    
 <script>
@@ -131,6 +216,7 @@ var pdfjsLib = window['pdfjs-dist/build/pdf'];
 pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://mozilla.github.io/pdf.js/build/pdf.worker.js';
 
 $("#myPdf").on("change", function(e){
+  $("#1").remove();
 	var file = e.target.files[0]
 	if(file.type == "application/pdf"){
 		var fileReader = new FileReader();  

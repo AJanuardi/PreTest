@@ -20,6 +20,7 @@ namespace SignalR.SignalR
         {
             Console.WriteLine(counter);
             var count = counter;
+            await Send(counter);
         }
 
     }

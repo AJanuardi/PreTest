@@ -1,14 +1,345 @@
-@{
-    ViewData["Title"] = "Home Page";
+<style>
+  .upload-btn-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
 }
 
-@{
-    var x = ViewBag.emp;
-    foreach (var i in x)
-    {
-    @i.name
-    <a href="/Employee/Edit/@i.id" class="btn btn-success">Edit</a>
-    <a href="/Employee/Delete/@i.id" class="btn btn-danger">Delete</a>
-    <a href="/Employee/Warning/@i.id" class="btn btn-warning">Warning</a>
-    }
+.btnx {
+  border: 2px solid gray;
+  color: gray;
+  background-color: white;
+  padding: 8px 20px;
+  border-radius: 8px;
+  font-size: 10px;
+  font-weight: bold;
 }
+
+.upload-btn-wrapper input[type=file] {
+  font-size: 20px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+}
+</style>
+
+<!DOCTYPE html>
+<html>
+<title></title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<body>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="text-center">
+        <h2><b>Employee Information Form</b></h2>
+        <p>Be Careful with Sensitive Data Information and Privacy</p>
+      </div>
+    </div>
+  </div>
+</div>
+<br>
+
+<div class="w3-sidebar w3-bar-block w3-black w3-card" style="width:130px; height: 275px">
+  <h5 class="w3-bar-item">Biodata</h5>
+  <button class="w3-bar-item w3-button tablink" onclick="openLink(event, 'Fade')">Profile</button>
+  <button class="w3-bar-item w3-button tablink" onclick="openLink(event, 'Left')">Occupation</button>
+  <button class="w3-bar-item w3-button tablink" onclick="openLink(event, 'Right')">Address</button>
+  <button class="w3-bar-item w3-button tablink" onclick="openLink(event, 'Top')">Emergency</button>
+  <button class="w3-bar-item w3-button tablink" onclick="openLink(event, 'Bottom')">Aggrements</button>
+</div>
+
+@{
+var x = ViewBag.emp;
+foreach (var i in x)
+{
+<form method="POST" enctype="multipart/form-data">
+<div class="container">
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-6">
+      <a href="/Employee/Edit/@i.id" class="btn btn-success">Edit</a>
+      <a href="/Employee/Delete/@i.id" class="btn btn-danger">Delete</a>
+      <a href="/Employee/Warning/@i.id" class="btn btn-warning">Warning</a>
+    </div>
+  </div>
+</div>
+<br>
+<br>
+
+<div style="margin-left:170px">
+  <div class="w3-padding"><b>Fill this form completely and correct</b></div>
+
+  <div id="Fade" class="w3-container city w3-animate-left" style="display:none">
+    <h2>Profile</h2>
+    <div class="row">
+    <div class="col-md-12" style="text-align: center;">
+    <img id="imgPreview" alt="Preview Image" src="@i.photo" style="width: 120px; height: 180px;">
+    </div>
+    </div>
+    <br>
+
+    <div class="row">
+      <div class="col">
+        <label>Full Name</label>
+        <input class="form-control" placeholder="Name" id="name" name="name" value="@i.name" readonly>
+      </div>
+      <div class="col">
+        <label>Email</label>
+        <input class="form-control" placeholder="Email" id="email" name="email" value="@i.email" readonly>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col">
+        <label>Phone Number</label>
+        <input class="form-control" placeholder="Phone" id="phone" name="phone" value="@i.phone" readonly>
+      </div>
+      <div class="col">
+        <br>
+        <label>Gender</label>
+        <br>
+        <div class="form-check form-check-inline">
+        <input id="2" value="@i.gender" hidden>
+        <input class="form-check-input" type="radio" name="gender" id="gender1" value="Male" readonly>
+        <label class="form-check-label" for="gender1">Male</label>
+        </div>
+        <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="gender" id="gender2" value="Female" readonly>
+        <label class="form-check-label" for="gender2">Female</label>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col">
+        <label>Bhirtdate</label>
+        <input id="1" value="@i.bhirtdate" hidden>
+        <input class="form-control" type="date" placeholder="date" id="date" name="date" readonly>
+      </div>
+      <div class="col">
+        <label>Bhirtplace</label>
+        <input class="form-control" placeholder="Place" id="place" name="place" value="@i.bhirtplace" readonly>
+      </div>
+    </div>
+  </div>
+  <br>
+
+  <div id="Left" class="w3-container city w3-animate-left" style="display:none">
+    <h2>Occupation</h2>
+    <div class="row">
+      <div class="col">
+        <label>Position</label>
+        <select id="position" name="position" class="form-control" value="@i.position" readonly>
+          <option value="Junior Programmer">Junior Programmer</option>
+          <option value="Senior Programmer">Senior Programmer</option>
+          <option value="Junior QC">Junior QC</option>
+          <option value="Senior QC">Senior QC</option>
+        </select>
+      </div>
+      <div class="col">
+        <label>Department</label>
+        <select id="department" name="department" class="form-control" value="@i.department" readonly>
+          <option value="Strategic Planner Officer">Strategic Planner Officer</option>
+          <option value="Quality Control">Quality Control</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <br>
+
+  <div id="Right" class="w3-container city w3-animate-left" style="display:none">
+    <h2>Address</h2>
+    <div class="row">
+      <div class="col">
+        <label>Address</label>
+        <input class="form-control" placeholder="Address" id="address" name="address" value="@i.address" readonly>
+      </div>
+    </div>
+  </div>
+  <br>
+
+  <div id="Top" class="w3-container city w3-animate-left" style="display:none">
+    <h2>Emergency</h2>
+    <div class="row">
+      <div class="col">
+        <label>Emergency Contact 1</label>
+        <input class="form-control" placeholder="Emergency 1" id="emergency1" name="emergency1" value="@i.emergency1" readonly>
+      </div>
+      <div class="col">
+        <label>Phone</label>
+        <input class="form-control" placeholder="Person Name" id="nameugd1" name="nameugd1" value="@i.nameugd1" readonly>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <label>Emergency Contact 2</label>
+        <input class="form-control" placeholder="Emergency 2" id="emergency2" name="emergency2" value="@i.emergency2" readonly>
+      </div>
+      <div class="col">
+        <label>Phone</label>
+        <input class="form-control" placeholder="Person Name" id="nameugd2" name="nameugd2" value="@i.nameugd2" readonly>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <label>Emergency Contact 3</label>
+        <input class="form-control" placeholder="Emergency 3" id="emergency3" name="emergency3" value="@i.emergency3" readonly>
+      </div>
+      <div class="col">
+        <label>Phone</label>
+        <input class="form-control" placeholder="Person Name" id="nameugd3" name="nameugd3" value="@i.nameugd3" readonly>
+      </div>
+    </div>
+  </div>
+  <br>
+
+  <div id="Bottom" class="w3-container city w3-animate-left" style="display:none">
+    <h2>Aggrements</h2>
+    <div class="row">
+      <div class="col">
+        <label>Contract Duration</label>
+        <input value="@i.contract" id="3" hidden>
+        <input class="form-control" type="date" placeholder="Contract" id="contract" name="contract" readonly>
+      </div>
+      <div class="col">
+        <label>Status Employee</label>
+        <select id="status" name="status" class="form-control" value="@i.status" readonly>
+          <option value="Probation">Probation</option>
+          <option value="Contract">Contract</option>
+          <option value="Permanent">Permanent</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <br>
+</form>
+}
+}
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.js"></script>
+  <script type="text/javascript">
+  function showImagePreview(input) {
+  if (input.files && input.files[0]) {
+  var filerdr = new FileReader();
+  filerdr.onload = function (e) {
+  $('#imgPreview').attr('src', e.target.result);
+  }
+  filerdr.readAsDataURL(input.files[0]);
+  }
+  }
+</script>
+
+<script>
+function openLink(evt, animName) {
+  var i, x, tablinks;
+  x = document.getElementsByClassName("city");
+  for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablink");
+  for (i = 0; i < x.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" w3-red", "");
+  }
+  document.getElementById(animName).style.display = "block";
+  evt.currentTarget.className += " w3-red";
+}
+</script>
+
+<script type="text/javascript">
+var date = document.getElementById("1").value;
+split = date.split("/");
+year = split[2].substring(0,4);
+month = split[0];
+day = split[1];
+var bhirtdate;
+if (month.length<2)
+{
+  if (day.length<2)
+  {
+    bhirtdate = year+"-0"+month+"-0"+day;
+    bhirtdate = bhirtdate.toString();
+  }
+  else
+  {
+    bhirtdate = year+"-0"+month+"-"+day;
+    bhirtdate = bhirtdate.toString();
+  }
+}
+else
+{
+  if(day.length<2)
+  {
+    bhirtdate = year+"-"+month+"-0"+day;
+    bhirtdate = bhirtdate.toString();
+  }
+  else
+  {
+    bhirtdate = year+"-"+month+"-"+day;
+    bhirtdate = bhirtdate.toString();
+  }
+}
+document.getElementById("date").value = bhirtdate;
+</script>
+
+<script type="text/javascript">
+var date = document.getElementById("3").value;
+split = date.split("/");
+year = split[2].substring(0,4);
+month = split[0];
+day = split[1];
+var bhirtdate;
+if (month.length<2)
+{
+  if (day.length<2)
+  {
+    contract = year+"-0"+month+"-0"+day;
+    contract = contract.toString();
+  }
+  else
+  {
+    contract = year+"-0"+month+"-"+day;
+    contract = contract.toString();
+  }
+}
+else
+{
+  if(day.length<2)
+  {
+    contract = year+"-"+month+"-0"+day;
+    contract = contract.toString();
+  }
+  else
+  {
+    contract = year+"-"+month+"-"+day;
+    contract = contract.toString();
+  }
+}
+document.getElementById("contract").value = contract;
+</script>
+
+
+<script type="text/javascript">
+var gender = document.getElementById("2").value;
+if (gender == "Male")
+{
+  radiobtn = document.getElementById("gender1");
+  radiobtn.checked = true;
+}
+else if (gender == "Female")
+{
+  radiobtn = document.getElementById("gender2");
+  radiobtn.checked = true;
+}
+</script>
+
+</body>
+</html>

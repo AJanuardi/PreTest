@@ -28,6 +28,9 @@ namespace HR_App.Migrations
                     b.Property<string>("address")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("apply")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime>("bhirtdate")
                         .HasColumnType("datetime2");
 
@@ -50,6 +53,9 @@ namespace HR_App.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("photo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("posisi")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("status")
@@ -120,6 +126,9 @@ namespace HR_App.Migrations
                     b.Property<DateTime>("contract")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("cv")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("department")
                         .HasColumnType("nvarchar(max)");
 
@@ -189,6 +198,9 @@ namespace HR_App.Migrations
                     b.Property<string>("position")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("reason")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("status")
                         .HasColumnType("nvarchar(max)");
 
@@ -216,6 +228,45 @@ namespace HR_App.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("pagings");
+                });
+
+            modelBuilder.Entity("HR_App.Models.Reminder", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("events")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("id");
+
+                    b.ToTable("reminders");
+                });
+
+            modelBuilder.Entity("HR_App.Models.User", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("nama")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("password")
+                        .HasColumnType("int");
+
+                    b.HasKey("id");
+
+                    b.ToTable("users");
                 });
 #pragma warning restore 612, 618
         }

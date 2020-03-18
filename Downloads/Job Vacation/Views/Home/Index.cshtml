@@ -1,0 +1,193 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Arimo:400,700&display=swap">
+<style>
+body{
+  font-family: 'Arimo', sans-serif;
+}
+h2{
+  color:#000;
+  text-align:center;
+  font-size:2em;
+}
+.warpper{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+}
+.tab{
+  cursor: pointer;
+  padding:20px 100px;
+  margin:0px 10px;
+  background:#000;
+  display:inline-block;
+  color:#fff;
+  border-radius:3px 3px 0px 0px;
+  box-shadow: 0 0.5rem 0.8rem #00000080;
+}
+.panels{
+  background:#fff;
+  box-shadow: 0 2rem 2rem #00000080;
+  min-height:375px;
+  width:100%;
+  max-width:1200px;
+  border-radius:3px;
+  overflow:hidden;
+  padding:20px;  
+}
+.panel{
+  display:none;
+  animation: fadein .8s;
+}
+.panel-title{
+  font-size:1.5em;
+  font-weight:bold
+}
+.radio{
+  display:none;
+}
+#one:checked ~ .panels #one-panel,
+#two:checked ~ .panels #two-panel,
+#three:checked ~ .panels #three-panel{
+  display:block
+}
+#one:checked ~ .tabs #one-tab,
+#two:checked ~ .tabs #two-tab,
+#three:checked ~ .tabs #three-tab{
+  background:#fff;
+  color:#000;
+  border-top: 3px solid #000;
+}
+* {box-sizing: border-box}
+/* Set height of body and the document to 100% */
+body, html {
+  height: 100%;
+  margin: 0;
+  font-family: Arial;
+}
+/* Style tab links */
+.tablink {
+  background-color: #555;
+  color: white;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  font-size: 17px;
+  width: 33.33%;
+}
+.tablink:hover {
+  background-color: #777;
+}
+/* Style the tab content (and add height:100% for full page content) */
+.tabcontent {
+  color: white;
+  display: none;
+  padding: 100px 20px;
+  height: 100%;
+}
+#News {background-color: green;}
+#Contact {background-color: teal;}
+#About {background-color: orange;}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+      <div class="text-center">
+      <h1><b>Login System</b></h1>
+      </div>
+    </div>
+  </div>
+</div>
+<br>
+
+<div class="warpper">
+  <input class="radio" id="one" name="group" type="radio" checked>
+  <input class="radio" id="two" name="group" type="radio">
+  <input class="radio" id="three" name="group" type="radio">
+  <div class="tabs">
+  <label class="tab" id="one-tab" for="one">Seeker</label>
+  <label class="tab" id="two-tab" for="two">Company</label>
+  <label class="tab" id="three-tab" for="three">Administrator</label>
+  </div>
+  <div class="panels">
+  <div class="panel" id="one-panel">
+<div class="container">
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4" style="text-align: center;">
+            <form method="POST" asp-action="Index" asp-controller="Home">
+                <input id="category" name="category" value="user" hidden>
+                <div class="form-group">
+                <label for="username">Username</label>
+                <input class="form-control" id="username" name="username" placeholder="Username">
+                </div>
+                <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                </div>
+                <input type="submit" class="btn btn-success" value="Login">
+            </form>
+            <br>
+                <button class="btn btn-success" onclick="window.location.href='/Home/Register?category=user'">Register User</button>
+        </div>
+    </div>
+</div>
+  </div>
+  <div class="panel" id="two-panel">
+<div class="container">
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4" style="text-align: center;">
+            <form method="POST" asp-action="Index" asp-controller="Home">
+            <input id="category" name="category" value="company" hidden>
+                <div class="form-group">
+                <label for="username">Username</label>
+                <input class="form-control" id="username" name="username" placeholder="Username">
+                </div>
+                <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                </div>
+            <input type="submit" class="btn btn-success" value="Login">
+            </form>
+            <br>
+            <button onclick="window.location.href='/Home/Register?category=company'" class="btn btn-success">Register Company</button>
+        </div>
+    </div>
+</div>
+<br>
+  </div>
+  <div class="panel" id="three-panel">
+      <div class="container">
+          <div class="row">
+              <div class="col-md-4"></div>
+              <div class="col-md-4" style="text-align: center;">
+                <form method="POST" asp-action="Index" asp-controller="Home">
+                    <input id="category" name="category" value="administrator" hidden>
+                        <div class="form-group">
+                        <label for="username">Username</label>
+                        <input class="form-control" id="username" name="username" placeholder="Username">
+                        </div>
+                        <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                        </div>
+                    <input type="submit" class="btn btn-success" value="Login">
+                </form>
+              </div>
+          </div>
+      </div>
+<br>
+  </div>
+  </div>
+</div>
+<br>
+<br>
+</body>

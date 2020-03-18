@@ -1,0 +1,48 @@
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8" style="text-align: center;">
+        <h1>Company List JOB Vacation</h1>
+        <br>
+    </div>
+  </div>
+</div> 
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      @{
+      var x = ViewBag.sub;
+      if (x != null)
+      {
+
+          <button onclick="window.location.href='/Home/InformationCompany'" class="btn btn-success">Profile</button>
+          <button onclick="window.location.href='/Home/AddJob'" class="btn btn-success">Add Job</button>
+          <button onclick="window.location.href='/Home/DataCompany'" class="btn btn-success">Data Job</button>
+      }
+      }
+      <br>
+    </div>
+  </div>
+</div>   
+<br>
+
+<ul class="list-group">
+@{
+    var y = ViewBag.Joblist;
+    foreach (var i in y)
+    {
+        <li class="list-group-item">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-3" style="text-align: left;">@i.title</div>
+            <div class="col-md-3" style="text-align: left;">@i.requirement</div>
+            <div class="col-md-3" style="text-align: left;">@i.enddate</div>
+            <div class="col-md-3" style="text-align: right;"><a href="/Home/EditJob/@i.id" class="btn btn-success">Edit Job</a> <a href="/Home/DeleteJob/@i.id" class="btn btn-danger">Delete Job</a></div>
+          </div>
+        </div>
+        </li>
+        <br>
+    }
+}
+</ul>

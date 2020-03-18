@@ -1,0 +1,35 @@
+<h1>Add Job</h1>
+<br>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8" style="text-align: center;">
+            <form method="POST" enctype="multipart/form-data" asp-action="AddedJob" asp-controller="Home">
+            <div class="form-group">
+            <input class="form-control" id="title" name="title" placeholder="title">
+            </div>
+            <div class="form-group">
+            <input class="form-control" id="description" name="description" placeholder="description">
+            </div>
+            <div class="form-group">
+            <input class="form-control" id="requirement" name="requirement" placeholder="requirement">
+            </div>
+            <div class="form-group">
+            <input class="form-control" id="informations" name="informations" placeholder="informations">
+            </div>
+            <div class="form-group">
+            <label>Flyer</label>
+            <input type="file" id="flyer" name="flyer" placeholder="flyer">
+            </div>
+            <div class="form-group">
+            <input type="datetime" class="form-control" id="stardate" name="stardate" placeholder="StartDate">
+            </div>
+            <div class="form-group">
+            <input type="datetime" class="form-control" name="enddate" id="enddate" placeholder="EndDate">
+            </div>
+            <input type="submit" class="btn btn-success">
+            </form>
+        </div>
+    </div>
+</div>

@@ -7,6 +7,7 @@ namespace HR_App.Models
         public Guid id {get; set;}
         public string name { get; set; }
         public string photo { get; set; }
+        public string cv    { get; set; }
         public string email { get; set; }
         public string phone { get; set; }
         public string gender { get; set; }

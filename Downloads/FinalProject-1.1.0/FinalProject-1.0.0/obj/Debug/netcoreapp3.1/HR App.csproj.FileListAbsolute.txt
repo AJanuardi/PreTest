@@ -261,3 +261,8 @@ D:\Users\bsi50130\Downloads\FinalProject-1.1.0\FinalProject-1.0.0\obj\Debug\netc
 D:\Users\bsi50130\Downloads\FinalProject-1.1.0\FinalProject-1.0.0\obj\Debug\netcoreapp3.1\Razor\Views\Applicant\Edit.cshtml.g.cs
 D:\Users\bsi50130\Downloads\FinalProject-1.1.0\FinalProject-1.0.0\obj\Debug\netcoreapp3.1\Razor\Views\Applicant\Data.cshtml.g.cs
 D:\Users\bsi50130\Downloads\FinalProject-1.1.0\FinalProject-1.0.0\obj\Debug\netcoreapp3.1\Razor\Views\Home\Dashboard.cshtml.g.cs
+D:\Users\bsi50130\Downloads\FinalProject-1.1.0\FinalProject-1.0.0\obj\Debug\netcoreapp3.1\Razor\Views\Home\Data.cshtml.g.cs
+D:\Users\bsi50130\Downloads\FinalProject-1.1.0\FinalProject-1.0.0\obj\Debug\netcoreapp3.1\Razor\Views\Home\Reminder.cshtml.g.cs
+D:\Users\bsi50130\Downloads\FinalProject-1.1.0\FinalProject-1.0.0\obj\Debug\netcoreapp3.1\Razor\Views\Home\Edit.cshtml.g.cs
+D:\Users\bsi50130\Downloads\FinalProject-1.1.0\FinalProject-1.0.0\obj\Debug\netcoreapp3.1\Razor\Views\LeaveRequest\Information.cshtml.g.cs
+D:\Users\bsi50130\Downloads\FinalProject-1.1.0\FinalProject-1.0.0\obj\Debug\netcoreapp3.1\Razor\Views\Attendance\Data.cshtml.g.cs

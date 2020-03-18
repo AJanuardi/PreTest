@@ -1,0 +1,13 @@
+@{
+    var x = ViewBag.name;
+    var y = ViewBag.title;
+    <h1>Name: @x</h1>
+    <br>
+    <h1>List Seeker: </h1>
+    foreach (var i in y)
+    {
+        <h4>@i.idseeker</h4>
+        <br>
+    }
+
+}

@@ -1,0 +1,75 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8" style="text-align: center;">
+      <h1>Every JOB you Need</h1>
+      <br>
+      <form method="GET">
+        <div class="form-group">
+          @{
+          var k = ViewBag.search;
+          <input class="form-control" id="search" name="search" placeholder="Searching for. . ." value=@k>
+          }
+          <div class="text-center">
+            <br>
+          <button asp-action="Jobvacation" asp-controller="Home" class="btn btn-outline-info">Search</button>
+                    <label>Sort</label>
+                    <select name="Sort" id = "Sort">
+                    <option value = "1">Name Asc</option>
+                    <option value = "2">Name Desc</option>
+                    <option value = "3">End Asc</option>
+                    <option value = "4">End Desc</option>
+                    </select>
+                    <input type="submit" class="btn btn-outline-info" onclick="javascript: sort_btn(this)"> 
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div> 
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">
+      @{
+      var x = ViewBag.sub;
+      if (x != null)
+      {
+          <button onclick="window.location.href='/Home/InformationUser'" class="btn btn-success">Profile</button>
+          <button onclick="window.location.href='/Home/DataUser'" class="btn btn-success">Data Job</button>
+      }
+      }
+      <br>
+    </div>
+  </div>
+</div>   
+<br>
+
+<ul class="list-group">
+@{
+    var y = ViewBag.jobs;
+    foreach (var i in y)
+    {
+        <li class="list-group-item">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-3" style="text-align: left;">@i.title</div>
+            <div class="col-md-3" style="text-align: left;">@i.requirement</div>
+            <div class="col-md-3" style="text-align: left;">@i.enddate</div>
+            <div class="col-md-3" style="text-align: right;"><a href="/Home/JobInfo/@i.id" class="btn btn-success">Job Detail</a></div>
+          </div>
+        </div>
+        </li>
+        <br>
+    }
+}
+</ul>
+
+<script type="text/javascript">
+function sort_btn()
+    {
+        var search = '@ViewBag.Search';
+        var sort = document.getElementById('Sort').value;
+        var path = '/Home/Jobvacation?sort='+sort+'&Search='+search;
+        window.location.href = path;
+    }
+</script>

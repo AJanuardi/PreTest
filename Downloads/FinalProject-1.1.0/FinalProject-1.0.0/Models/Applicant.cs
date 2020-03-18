@@ -14,6 +14,7 @@ namespace HR_App.Models
         public DateTime bhirtdate { get; set; }
         public string bhirtplace { get; set; }
         public string address { get; set; }
+        public string posisi { get; set; }
         public string status { get; set; }
         public DateTime apply { get; set; }
     }

@@ -1,0 +1,49 @@
+@{
+    var x = ViewBag.seekers;
+    var y = ViewBag.companies;
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12" style="text-align: center;">
+                <h1>User</h1>
+            </div>
+        </div>
+    </div>
+    foreach (var i in x)
+    {
+        if(i.status != "blocked")
+        {
+        <div class="container">
+        <div class="row">
+        <div class="col-md-3" style="text-align: left;">@i.name</div>
+        <div class="col-md-3" style="text-align: center;">@i.phone</div>
+        <div class="col-md-3" style="text-align: center;">@i.address</div>
+        <div class="col-md-3" style="text-align: right;"><button onclick="window.location.href='/Home/BlockUser/@i.id'" class="btn btn-success">Block</button></div>
+        </div>
+        </div>
+        <br>
+        }
+    }
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12" style="text-align: center;">
+                <h1>Company</h1>
+            </div>
+        </div>
+    </div>
+    foreach (var i in y)
+    {
+        if(i.status != "blocked")
+        {
+        <div class="container">
+        <div class="row">
+        <div class="col-md-3" style="text-align: left;">@i.name</div>
+        <div class="col-md-3" style="text-align: center;">@i.address</div>
+        <div class="col-md-3" style="text-align: center;">@i.phone</div>
+        <div class="col-md-3" style="text-align: right;"><button onclick="window.location.href='/Home/BlockCompany/@i.id'" class="btn btn-success">Block</button></div>
+        </div>
+        </div>
+        <br>
+        }
+    }
+
+}

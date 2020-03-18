@@ -12,6 +12,7 @@ namespace HR_App.Data
         public DbSet<Leave> leaves { get; set; }
         public DbSet<Applicant> applicants { get; set; }
         public DbSet<Reminder> reminders { get; set; }
+        public DbSet<User> users { get; set; }
         public AppDbContext(DbContextOptions options) : base (options) 
         {
 

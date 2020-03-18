@@ -1,15 +1,341 @@
 @{
     ViewData["Title"] = "Home Page";
 }
+<style>
+  .upload-btn-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.btnx {
+  border: 2px solid gray;
+  color: gray;
+  background-color: white;
+  padding: 8px 20px;
+  border-radius: 8px;
+  font-size: 10px;
+  font-weight: bold;
+}
+
+.upload-btn-wrapper input[type=file] {
+  font-size: 20px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+}
+</style>
+
+<!DOCTYPE html>
+<html>
+<title></title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<body>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="text-center">
+        <h2><b>Employee Information Form</b></h2>
+        <p>Be Careful with Sensitive Data Information and Privacy</p>
+      </div>
+    </div>
+  </div>
+</div>
+<br>
+
+<div class="w3-sidebar w3-bar-block w3-black w3-card" style="width:130px; height: 275px">
+  <h5 class="w3-bar-item">Biodata</h5>
+  <button class="w3-bar-item w3-button tablink" onclick="openLink(event, 'Fade')">Profile</button>
+</div>
 
 @{
     var x = ViewBag.app;
     foreach (var i in x)
     {
-    @i.name
-    <a href="/Applicant/Edit/@i.id" class="btn btn-success">Edit</a>
-    <a href="/Applicant/Delete/@i.id" class="btn btn-danger">Delete</a>
-    <a href="/Applicant/Status/@i.id" class="btn btn-primary">Pass</a>
-    <a href="/Applicant/Fail/@i.id" class="btn btn-warning">Reject</a>
+<div class="container">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-6">
+            <a href="/Applicant/Edit/@i.id" class="btn btn-success">Edit</a>
+            <a href="/Applicant/Delete/@i.id" class="btn btn-danger">Delete</a>
+            <a href="/Applicant/Status/@i.id" class="btn btn-primary">Pass</a>
+            <a href="/Applicant/Fail/@i.id" class="btn btn-warning">Reject</a>
+        </div>
+    </div>
+</div>
+<br>
+
+<form method="POST" enctype="multipart/form-data">
+<div style="margin-left:170px">
+  <div class="w3-padding"><b>Fill this form completely and correct</b></div>
+
+  <div id="Fade" class="w3-container city w3-animate-left" style="display:none">
+    <h2>Profile</h2>
+    <div class="row">
+      <div class="col-md-12" style="text-align: center;">
+        <img id="imgPreview" alt="Preview Image" src="@i.photo" style="width: 120px; height: 180px;">
+      </div>
+    </div>
+    <br>
+    
+    </div>
+    <br>
+    <br>
+
+    <div class="row">
+      <div class="col">
+        <h3><b>STATUS: @i.status</b></h3>
+      </div>
+    </div>
+    <br>
+    
+    <div class="row">
+      <div class="col">
+        <label>Full Name</label>
+        <input class="form-control" placeholder="Name" id="name" name="name" value="@i.name" readonly>
+      </div>
+      <div class="col">
+        <label>Email</label>
+        <input class="form-control" placeholder="Email" id="email" name="email" value="@i.email" readonly>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col">
+        <label>Phone Number</label>
+        <input class="form-control" placeholder="Phone" id="phone" name="phone" value="@i.phone" readonly>
+      </div>
+      <div class="col">
+        <br>
+        <label>Gender</label>
+        <br>
+        <div class="form-check form-check-inline">
+        <input id="2" value="@i.gender" hidden>
+        <input class="form-check-input" type="radio" name="gender" id="gender1" value="Male" readonly>
+        <label class="form-check-label" for="gender1">Male</label>
+        </div>
+        <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="gender" id="gender2" value="Female" readonly>
+        <label class="form-check-label" for="gender2">Female</label>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col">
+        <label>Bhirtdate</label>
+        <input id="4" value="@i.bhirtdate" hidden>
+        <input class="form-control" type="date" placeholder="date" id="date" name="date" value="@i.bhirtdate" readonly>
+      </div>
+      <div class="col">
+        <label>Bhirtplace</label>
+        <input class="form-control" placeholder="Place" id="place" name="place" value="@i.bhirtplace" readonly>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col">
+        <br>
+        <label>Address</label>
+        <input class="form-control" placeholder="Address" id="address" name="address" value="@i.address" readonly>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+        <br>
+        <label>Apply</label>
+        <input id="3" value="@i.apply" hidden>
+        <input class="form-control" type="date" id="apply" name="apply" readonly>
+        </div>
+        <div class="col">
+        <br>
+        <label>Position</label>
+        <input class="form-control" id="posisi" name="posisi" value="@i.posisi" readonly>
+        </div>
+    </div>
+  </div>
+<br>
+</form>
     }
 }
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
+
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.js"></script>
+  <script type="text/javascript">
+  function showImagePreview(input) {
+  if (input.files && input.files[0]) {
+  var filerdr = new FileReader();
+  filerdr.onload = function (e) {
+  $('#imgPreview').attr('src', e.target.result);
+  }
+  filerdr.readAsDataURL(input.files[0]);
+  }
+  }
+</script>
+
+<script>
+function openLink(evt, animName) {
+  var i, x, tablinks;
+  x = document.getElementsByClassName("city");
+  for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablink");
+  for (i = 0; i < x.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" w3-red", "");
+  }
+  document.getElementById(animName).style.display = "block";
+  evt.currentTarget.className += " w3-red";
+}
+</script>
+   
+<script>
+  // Loaded via <script> tag, create shortcut to access PDF.js exports.
+var pdfjsLib = window['pdfjs-dist/build/pdf'];
+// The workerSrc property shall be specified.
+pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://mozilla.github.io/pdf.js/build/pdf.worker.js';
+
+$("#myPdf").on("change", function(e){
+  $("#1").remove();
+	var file = e.target.files[0]
+	if(file.type == "application/pdf"){
+		var fileReader = new FileReader();  
+		fileReader.onload = function() {
+			var pdfData = new Uint8Array(this.result);
+			// Using DocumentInitParameters object to load binary data.
+			var loadingTask = pdfjsLib.getDocument({data: pdfData});
+			loadingTask.promise.then(function(pdf) {
+			  console.log('PDF loaded');
+			  
+			  // Fetch the first page
+			  var pageNumber = 1;
+			  pdf.getPage(pageNumber).then(function(page) {
+				console.log('Page loaded');
+				
+				var scale = 1.5;
+				var viewport = page.getViewport({scale: scale});
+
+				// Prepare canvas using PDF page dimensions
+				var canvas = $("#pdfViewer")[0];
+				var context = canvas.getContext('2d');
+				canvas.height = viewport.height;
+				canvas.width = viewport.width;
+
+				// Render PDF page into canvas context
+				var renderContext = {
+				  canvasContext: context,
+				  viewport: viewport
+				};
+				var renderTask = page.render(renderContext);
+				renderTask.promise.then(function () {
+				  console.log('Page rendered');
+				});
+			  });
+			}, function (reason) {
+			  // PDF loading error
+			  console.error(reason);
+			});
+		};
+		fileReader.readAsArrayBuffer(file);
+	}
+});
+</script>
+
+<script type="text/javascript">
+var date = document.getElementById("4").value;
+spliter = date.split("/");
+year = spliter[2].substring(0,4);
+month = spliter[0];
+day = spliter[1];
+var bhirtdate;
+if (month.length<2)
+{
+  if (day.length<2)
+  {
+    bhirtdate = year+"-0"+month+"-0"+day;
+    bhirtdate = bhirtdate.toString();
+  }
+  else
+  {
+    bhirtdate = year+"-0"+month+"-"+day;
+    bhirtdate = bhirtdate.toString();
+  }
+}
+else
+{
+  if(day.length<2)
+  {
+    bhirtdate = year+"-"+month+"-0"+day;
+    bhirtdate = bhirtdate.toString();
+  }
+  else
+  {
+    bhirtdate = year+"-"+month+"-"+day;
+    bhirtdate = bhirtdate.toString();
+  }
+}
+console.log(bhirtdate);
+document.getElementById("date").value = bhirtdate;
+</script>
+
+<script type="text/javascript">
+var gender = document.getElementById("2").value;
+if (gender == "Male")
+{
+  radiobtn = document.getElementById("gender1");
+  radiobtn.checked = true;
+}
+else if (gender == "Female")
+{
+  radiobtn = document.getElementById("gender2");
+  radiobtn.checked = true;
+}
+</script>
+
+<script type="text/javascript">
+var date = document.getElementById("3").value;
+spliter = date.split("/");
+year = spliter[2].substring(0,4);
+month = spliter[0];
+day = spliter[1];
+var bhirtdate;
+if (month.length<2)
+{
+  if (day.length<2)
+  {
+    dates = year+"-0"+month+"-0"+day;
+    dates = dates.toString();
+  }
+  else
+  {
+    dates = year+"-0"+month+"-"+day;
+    dates = dates.toString();
+  }
+}
+else
+{
+  if(day.length<2)
+  {
+    dates = year+"-"+month+"-0"+day;
+    dates = dates.toString();
+  }
+  else
+  {
+    dates = year+"-"+month+"-"+day;
+    dates = dates.toString();
+  }
+}
+document.getElementById("apply").value = dates;
+</script>
+
+</body>
+</html> 

@@ -1,15 +1,50 @@
-<form method="POST" asp-action="Add" asp-controler="Broadcast">
-<input type="text" placeholder="Title" id="title" name="title">
-<input type="text" placeholder="Body" id="body" name="body">
-<input type="submit">
-</form>
+<div class="text-center">
+<h1>Broadcast System</h1>
+<p>Be Carefuly to Send Any Confidential Information</p>
+</div>
+<br>
+            <form method="POST" asp-action="Add" asp-controller="Broadcast">
+            <div class="form-group">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4" style="text-align: center;">
+                            <input type="text" class="form-control" id="title" name="title" placeholder="Title">
+                        </div>
+                        <div class="col-md-8" style="text-align: center;">
+                            <input type="text" class="form-control" id="body" name="body" placeholder="Message">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4" style="text-align: center;">
+                        <button type="submit" class="btn btn-primary">Send Broadcast</button>
+                    </div>
+                </div>
+            </div>
+            </form>
+<br>
+<br>
 
 @{
     var x = ViewBag.broad;
     foreach (var i in x)
     {
-        @i.title
-        @i.date
-        @i.body
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card border-primary">
+                    <div class="card-header">@i.date</div>
+                    <div class="card-body text-primary">
+                        <h5 class="card-title">@i.title</h5>
+                        <p class="card-text">@i.body</p>
+                    </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            <br>
     }
 }

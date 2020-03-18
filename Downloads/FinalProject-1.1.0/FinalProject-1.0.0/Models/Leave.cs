@@ -10,6 +10,7 @@ namespace HR_App.Models
         public string department { get; set; }
         public DateTime outtime { get; set; }
         public DateTime intime { get; set; }
+        public string reason { get; set; }
         public string status { get; set; }
     }
 }

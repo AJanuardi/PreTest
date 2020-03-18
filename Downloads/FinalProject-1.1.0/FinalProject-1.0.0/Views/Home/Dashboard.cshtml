@@ -1,0 +1,295 @@
+<style>
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.flip-card {
+  background-color: transparent;
+  width: 325px;
+  height: 150px;
+  perspective: 300px;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.flip-card-front {
+  background-color: #bbb;
+  color: black;
+}
+
+.flip-card-back {
+  background-color: #2980b9;
+  color: black;
+  transform: rotateY(180deg);
+}
+</style>
+
+<a href="/Home/Reminder" class="btn btn-success">
+<span><img src="/images/plus.svg" width="20px" height="20px"></span>
+ Reminder Management
+</a>
+<br>
+<br>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                    <div class="card border-success">
+                    <div class="card-header bg-success" style="text-align: center;">
+                        <b>Total Employees</b>
+                    </div>
+                    <div class="card-body">
+                        @{
+                        var x = ViewBag.emp;
+                        var y = ViewBag.male;
+                        var z = ViewBag.female;
+                        <h1 class="card-title" style="text-align: center;"><b>@x</b></h1>
+                        <p class="card-text" style="text-align: center;">@y males / @z females</p>
+                        }
+                    </div>
+                    </div>
+                    </div>
+                    <div class="flip-card-back">
+                    <div class="card border-success">
+                    <div class="card-header bg-success" style="text-align: center;">
+                        <b>Total Employees</b>
+                    </div>
+                    <div class="card-body">
+                        <div class="progress">
+                        @{
+                        if (x <= 5)
+                        {
+                        <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+                        }
+                        else if (x > 5 && x <= 10)
+                        {
+                        <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                        }
+                        else if (x > 10 && x <= 15)
+                        {
+                        <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                        }
+                        else if (x > 15 && x <= 20)
+                        {
+                        <div class="progress-bar progress-bar-striped bg-warning" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                        }
+                        else if (x > 20 && x <= 25)
+                        {
+                        <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                        }
+                        }
+                        </div>
+                        <br>
+                        <h4>Standard of Employees</h4>
+                        <p>Need At Least 75% or above 15 Employees</p>
+                    </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                    <div class="card border-warning">
+                    <div class="card-header bg-warning" style="text-align: center;">
+                        <b>Out Today</b>
+                    </div>
+                    <div class="card-body">
+                        @{
+                        var k = ViewBag.outcount;
+                        <h1 class="card-title" style="text-align: center;"><b>@k</b></h1>
+                        <p class="card-text" style="text-align: center;">employees</p>
+                        }
+                    </div>
+                    </div>
+                    </div>
+                    <div class="flip-card-back">
+                    <div class="card border-warning">
+                    <div class="card-header bg-warning" style="text-align: center;">
+                        <b>Out Today</b>
+                    </div>
+                    <div class="card-body">
+                        <div class="progress">
+                        @{
+                        if (k <= 1)
+                        {
+                        <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+                        }
+                        else if (k > 1 && k <= 3)
+                        {
+                        <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                        }
+                        else if (k > 3 && k <= 5)
+                        {
+                        <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                        }
+                        else if (k > 5 && k <= 7)
+                        {
+                        <div class="progress-bar progress-bar-striped bg-warning" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                        }
+                        else if (k > 7 && k <= 9)
+                        {
+                        <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                        }
+                        }
+                        </div>
+                        <br>
+                        <h4>Standard of Leave</h4>
+                        <p>Below 25% or max 3 Employees which Leave at the Same Time</p>
+                    </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                    <div class="card border-success">
+                    <div class="card-header bg-success" style="text-align: center;">
+                        <b>Today Presents</b>
+                    </div>
+                    <div class="card-body">
+                        @{
+                        var l = ViewBag.abs;
+                        <h1 class="card-title" style="text-align: center;"><b>@l / @x</b></h1>
+                        <p class="card-text" style="text-align: center;">employees</p>
+                        }
+                    </div>
+                    </div>
+                    </div>
+                    <div class="flip-card-back">
+                    <div class="card border-success">
+                    <div class="card-header bg-success" style="text-align: center;">
+                        <b>Today Presents</b>
+                    </div>
+                    <div class="card-body">
+                       <div class="progress">
+                        @{
+                        if (l <= 0.1)
+                        {
+                        <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+                        }
+                        else if (l > 0.1 && l <= 0.3)
+                        {
+                        <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                        }
+                        else if (l > 0.3 && l <= 0.5)
+                        {
+                        <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                        }
+                        else if (l > 0.5 && l <= 0.7)
+                        {
+                        <div class="progress-bar progress-bar-striped bg-warning" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                        }
+                        else if (l > 0.7 && l <= 0.9)
+                        {
+                        <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                        }
+                        }
+                        </div>
+                        <br>
+                        <h4>Standard of Attandance</h4>
+                        <p>Need At Least 75% of Attandance of Employees</p>
+                    </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+                        <div class="card border-info">
+                            <div class="card-header bg-info" style="text-align: center;">
+                                <b>Upcoming Events</b>
+                            </div>
+                            <div class="card-body">
+                            @{
+                            var n = ViewBag.reminders;
+                            foreach (var i in n)
+                            {
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-md-2" style="text-align: left;">
+                                            <img src="/images/Calendar.svg" width="15px" height="15px">
+                                        </div>
+                                        <div class="col-md-4" style="text-align: left;">
+                                            <h6 class="card-title">@i.name</h6>
+                                        </div>
+                                        <div class="col-md-6" style="text-align: right;">
+                                            <h6 class="card-title">@i.events.DayOfWeek, @i.events.ToShortDateString()</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                   
+                            }
+                            }
+                            </div>
+                        </div>
+        </div>
+        <div class="col-md-6">
+                        <div class="card border-sinfo">
+                            <div class="card-header bg-info" style="text-align: center;">
+                                <b>New Applicants</b>
+                            </div>
+                            <div class="card-body">
+                                @{
+                                var m = ViewBag.apply;
+                                foreach (var i in m)
+                                {
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-md-2" style="text-align: left;">
+                                            <img src="/images/user.svg" width="15px" height="15px">
+                                        </div>
+                                        <div class="col-md-4" style="text-align: left;">
+                                            <h6 class="card-title">@i.name</h6>
+                                        </div>
+                                        <div class="col-md-6" style="text-align: right;">
+                                            <h6 class="card-title">@i.apply</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                }
+                                }
+                            </div>
+                        </div>
+        </div>
+    </div>
+</div>
+

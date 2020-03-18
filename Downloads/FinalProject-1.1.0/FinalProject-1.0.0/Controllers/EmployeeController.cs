@@ -15,6 +15,7 @@ using System.Net.Mail;
 using MimeKit;
 using MailKit.Net.Smtp;
 using MailKit;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HR_App.Controllers
 {
@@ -29,31 +30,53 @@ namespace HR_App.Controllers
             _appdbcontext = appDbContext;
         }
         
+        [Authorize]
         public IActionResult Index(string search, int _crntpage=1)
         {
-            var y = (from i in _appdbcontext.leaves where i.status == "submited" select i).Count();
-            ViewBag.count = y;
-            var z = _appdbcontext.pagings.Find(1);
-            z.CurrentPage = _crntpage;
-            _appdbcontext.SaveChanges();
-            if (z.CurrentPage == 1)
+            var j = (from i in _appdbcontext.pagings select i).FirstOrDefault();
+            ViewBag.search = search;
+            if (j == null)
             {
+                Paging paging = new Paging()
+                {
+                    CurrentPage = 1
+                };
+                _appdbcontext.pagings.Add(paging);
+                _appdbcontext.SaveChanges();
+                var y = (from i in _appdbcontext.leaves where i.status == "submitted" select i).Count();
+                ViewBag.count = y;
+                var z = _appdbcontext.pagings.Find(1);
+                z.CurrentPage = _crntpage;
+                _appdbcontext.SaveChanges();
+                if (z.CurrentPage == 1)
+                {
                 if (search != null)
                 {
                     var take = z.ShowItem;
-                    var x = from i in _appdbcontext.employees where (i.name.Contains(search) || i.position.Contains(search) || i.department.Contains(search) || i.status.Contains(search)) select i;
-                    var get = from a in x.Skip(take*(z.CurrentPage - 1)).Take(take) select a;
+                    var x = from i in _appdbcontext.employees.OrderBy(a => a.name) where (i.name.Contains(search) || i.position.Contains(search) || i.department.Contains(search) || i.status.Contains(search) && i.status=="Probation") select i;
+                    var k = from i in _appdbcontext.employees.OrderBy(a => a.name) where (i.name.Contains(search) || i.position.Contains(search) || i.department.Contains(search) || i.status.Contains(search) && i.status=="Contract") select i;
+                    var l = from i in _appdbcontext.employees.OrderBy(a => a.name) where (i.name.Contains(search) || i.position.Contains(search) || i.department.Contains(search) || i.status.Contains(search) && i.status=="Permanent") select i;
+                    var get = from a in x.Take(take) select a;
+                    var get1 = from a in k.Take(take) select a;
+                    var get2 = from a in l.Take(take) select a;
                     ViewBag.emp = get;
+                    ViewBag.emp1 = get1;
+                    ViewBag.emp2 = get2;
                     ViewBag.page = z;
                     return View();
                 }
                 else
                 {
                     var take = z.ShowItem;
-                    var x = from i in _appdbcontext.employees select i;
-                    ViewBag.emp = x;
-                    var get = from a in x.Skip(take*(z.CurrentPage - 1)).Take(take) select a;
+                    var x = from i in _appdbcontext.employees.OrderBy(a => a.name) where (i.status == "Probation") select i;
+                    var k = from i in _appdbcontext.employees.OrderBy(a => a.name) where (i.status == "Contract") select i;
+                    var l = from i in _appdbcontext.employees.OrderBy(a => a.name) where (i.status == "Permanent") select i;
+                    var get = from a in x.Take(take) select a;
+                    var get1 = from a in k.Take(take) select a;
+                    var get2 = from a in l.Take(take) select a;
                     ViewBag.emp = get;
+                    ViewBag.emp1 = get1;
+                    ViewBag.emp2 = get2;
                     ViewBag.page = z;
                     return View();
                 }
@@ -63,32 +86,135 @@ namespace HR_App.Controllers
                 if (search != null)
                 {
                     var take = z.ShowItem;
-                    var x = from i in _appdbcontext.employees where (i.name.Contains(search) || i.position.Contains(search) || i.department.Contains(search) || i.status.Contains(search)) select i;
-                    var get = from a in x.Skip(take*(z.CurrentPage - 1)).Take(take) select a;
+                    var x = from i in _appdbcontext.employees.OrderBy(a => a.name) where (i.name.Contains(search) || i.position.Contains(search) || i.department.Contains(search) || i.status.Contains(search) && i.status=="Probation") select i;
+                    var k = from i in _appdbcontext.employees.OrderBy(a => a.name) where (i.name.Contains(search) || i.position.Contains(search) || i.department.Contains(search) || i.status.Contains(search) && i.status=="Contract") select i;
+                    var l = from i in _appdbcontext.employees.OrderBy(a => a.name) where (i.name.Contains(search) || i.position.Contains(search) || i.department.Contains(search) || i.status.Contains(search) && i.status=="Permanent") select i;
+                    var get = from a in x.Skip(take*(z.CurrentPage-1)).Take(take) select a;
+                    var get1 = from a in k.Skip(take*(z.CurrentPage-1)).Take(take) select a;
+                    var get2 = from a in l.Skip(take*(z.CurrentPage-1)).Take(take) select a;
                     ViewBag.emp = get;
+                    ViewBag.emp1 = get1;
+                    ViewBag.emp2 = get2;
                     ViewBag.page = z;
                     return View();
                 }
                 else
                 {
                     var take = z.ShowItem;
-                    var x = from i in _appdbcontext.employees select i;
+                    var x = (from i in _appdbcontext.employees.OrderBy(a => a.name) where (i.status == "Probation") select i).Skip(take*(z.CurrentPage-1)).Take(take);
+                    var k = (from i in _appdbcontext.employees.OrderBy(a => a.name) where (i.status == "Permanent") select i).Skip(take*(z.CurrentPage-1)).Take(take);
+                    var l = (from i in _appdbcontext.employees.OrderBy(a => a.name) where (i.status == "Contract") select i).Skip(take*(z.CurrentPage-1)).Take(take);
+                    foreach (var i in x)
+                    {
+                        Console.WriteLine(i.name);
+                    }
+                    foreach (var i in k)
+                    {
+                        Console.WriteLine(i.name);
+                    }
                     ViewBag.emp = x;
-                    var get = from a in x.Skip(take*(z.CurrentPage - 1)).Take(take) select a;
-                    ViewBag.emp = get;
+                    ViewBag.emp1 = l;
+                    ViewBag.emp2 = k;
                     ViewBag.page = z;
                     return View();
                 }
             }
+            }
+            else
+            {
+            var y = (from i in _appdbcontext.leaves where i.status == "submitted" select i).Count();
+            ViewBag.count = y;
+            var z = _appdbcontext.pagings.Find(1);
+            z.CurrentPage = _crntpage;
+            _appdbcontext.SaveChanges();
+            if (z.CurrentPage == 1)
+            {
+                if (search != null)
+                {
+                    var take = z.ShowItem;
+                    var x = from i in _appdbcontext.employees.OrderBy(a => a.name) where (i.name.Contains(search) || i.position.Contains(search) || i.department.Contains(search) || i.status.Contains(search) && i.status=="Probation") select i;
+                    var k = from i in _appdbcontext.employees.OrderBy(a => a.name) where (i.name.Contains(search) || i.position.Contains(search) || i.department.Contains(search) || i.status.Contains(search) && i.status=="Contract") select i;
+                    var l = from i in _appdbcontext.employees.OrderBy(a => a.name) where (i.name.Contains(search) || i.position.Contains(search) || i.department.Contains(search) || i.status.Contains(search) && i.status=="Permanent") select i;
+                    var get = from a in x.Take(take) select a;
+                    var get1 = from a in k.Take(take) select a;
+                    var get2 = from a in l.Take(take) select a;
+                    ViewBag.emp = get;
+                    ViewBag.emp1 = get1;
+                    ViewBag.emp2 = get2;
+                    ViewBag.page = z;
+                    return View();
+                }
+                else
+                {
+                    var take = z.ShowItem;
+                    var x = from i in _appdbcontext.employees.OrderBy(a => a.name) where (i.status == "Probation") select i;
+                    var k = from i in _appdbcontext.employees.OrderBy(a => a.name) where (i.status == "Contract") select i;
+                    var l = from i in _appdbcontext.employees.OrderBy(a => a.name) where (i.status == "Permanent") select i;
+                    var get = from a in x.Take(take) select a;
+                    var get1 = from a in k.Take(take) select a;
+                    var get2 = from a in l.Take(take) select a;
+                    ViewBag.emp = get;
+                    ViewBag.emp1 = get1;
+                    ViewBag.emp2 = get2;
+                    ViewBag.page = z;
+                    return View();
+                }
+            }
+            else
+            {
+                if (search != null)
+                {
+                    var take = z.ShowItem;
+                    var x = from i in _appdbcontext.employees.OrderBy(a => a.name) where (i.name.Contains(search) || i.position.Contains(search) || i.department.Contains(search) || i.status.Contains(search) && i.status=="Probation") select i;
+                    var k = from i in _appdbcontext.employees.OrderBy(a => a.name) where (i.name.Contains(search) || i.position.Contains(search) || i.department.Contains(search) || i.status.Contains(search) && i.status=="Contract") select i;
+                    var l = from i in _appdbcontext.employees.OrderBy(a => a.name) where (i.name.Contains(search) || i.position.Contains(search) || i.department.Contains(search) || i.status.Contains(search) && i.status=="Permanent") select i;
+                    var get = from a in x.Skip(take*(z.CurrentPage-1)).Take(take) select a;
+                    var get1 = from a in k.Skip(take*(z.CurrentPage-1)).Take(take) select a;
+                    var get2 = from a in l.Skip(take*(z.CurrentPage-1)).Take(take) select a;
+                    ViewBag.emp = get;
+                    ViewBag.emp1 = get1;
+                    ViewBag.emp2 = get2;
+                    ViewBag.page = z;
+                    return View();
+                }
+                else
+                {
+                    var take = z.ShowItem;
+                    var x = (from i in _appdbcontext.employees.OrderBy(a => a.name) where (i.status == "Probation") select i).Skip(take*(z.CurrentPage-1)).Take(take);
+                    var k = (from i in _appdbcontext.employees.OrderBy(a => a.name) where (i.status == "Permanent") select i).Skip(take*(z.CurrentPage-1)).Take(take);
+                    var l = (from i in _appdbcontext.employees.OrderBy(a => a.name) where (i.status == "Contract") select i).Skip(take*(z.CurrentPage-1)).Take(take);
+                    foreach (var i in x)
+                    {
+                        Console.WriteLine(i.name);
+                    }
+                    foreach (var i in k)
+                    {
+                        Console.WriteLine(i.name);
+                    }
+                    ViewBag.emp = x;
+                    ViewBag.emp1 = l;
+                    ViewBag.emp2 = k;
+                    ViewBag.page = z;
+                    return View();
+                }
+            }
+            }
         }
 
+        [Authorize]
         public IActionResult Data()
         {
             return View();
         }
 
-        public IActionResult AddNew(string name, string email, IFormFile photo, string phone, string gender, DateTime date, string place, string position, string department, string address, string nameugd1, string nameugd2, string nameugd3, string emergency1, string emergency2, string emergency3, string status, DateTime contract)
+        [Authorize]
+        public IActionResult AddNew(string name, string email, IFormFile cv, IFormFile photo, string phone, string gender, DateTime date, string place, string position, string department, string address, string nameugd1, string nameugd2, string nameugd3, string emergency1, string emergency2, string emergency3, string status, DateTime contract)
         {
+                var path1 = "wwwroot//cv";
+                Directory.CreateDirectory(path1);
+                var FileName1 = Path.Combine(path1, Path.GetFileName(cv.FileName));
+                cv.CopyTo(new FileStream(FileName1, FileMode.Create));
+                var file1 = FileName1.Substring(8).Replace(@"\","/");
                 var path = "wwwroot//images";
                 Directory.CreateDirectory(path);
                 var FileName= Path.Combine(path, Path.GetFileName(photo.FileName));
@@ -96,6 +222,7 @@ namespace HR_App.Controllers
                 var file = FileName.Substring(8).Replace(@"\","/");
                 Employee data = new Employee()
                 {
+                    cv = file1,
                     photo = file,
                     name = name,
                     email = email,
@@ -120,8 +247,14 @@ namespace HR_App.Controllers
                 return RedirectToAction("Data");
         }
 
-        public IActionResult Add(string name, string email, IFormFile photo, string phone, string gender, DateTime date, string place, string position, string department, string address, string nameugd1, string nameugd2, string nameugd3, string emergency1, string emergency2, string emergency3, string status, DateTime contract)
+        [Authorize]
+        public IActionResult Add(string name, string email, IFormFile cv, IFormFile photo, string phone, string gender, DateTime date, string place, string position, string department, string address, string nameugd1, string nameugd2, string nameugd3, string emergency1, string emergency2, string emergency3, string status, DateTime contract)
         {
+                var path1 = "wwwroot//cv";
+                Directory.CreateDirectory(path1);
+                var FileName1 = Path.Combine(path1, Path.GetFileName(cv.FileName));
+                cv.CopyTo(new FileStream(FileName1, FileMode.Create));
+                var file1 = FileName1.Substring(8).Replace(@"\","/");
                 var path = "wwwroot//images";
                 Directory.CreateDirectory(path);
                 var FileName= Path.Combine(path, Path.GetFileName(photo.FileName));
@@ -129,6 +262,7 @@ namespace HR_App.Controllers
                 var file = FileName.Substring(8).Replace(@"\","/");
                 Employee data = new Employee()
                 {
+                    cv = file1,
                     photo = file,
                     name = name,
                     email = email,
@@ -153,12 +287,14 @@ namespace HR_App.Controllers
                 return RedirectToAction("Index");
         }
 
+        [Authorize]
         public IActionResult Export()
         {
             var colom = new string[]
             {
                 "id",
                 "name",
+                "cv",
                 "photo",
                 "email",
                 "phone",
@@ -181,6 +317,7 @@ namespace HR_App.Controllers
             {
                 i.id,
                 i.name,
+                i.cv,
                 i.photo,
                 i.email,
                 i.phone,
@@ -208,6 +345,7 @@ namespace HR_App.Controllers
             return File(buffer, "text/csv", $"Employees Info.csv");
         }
 
+        [Authorize]
         public IActionResult Import([FromForm(Name="Upload")] IFormFile Upload)
         {
                         using (var sreader = new StreamReader(Upload.OpenReadStream()))
@@ -220,23 +358,24 @@ namespace HR_App.Controllers
                                 {
 
                                     name = rows[0].ToString(),
-                                    photo = rows[1].ToString(),
-                                    email = rows[2].ToString(),
-                                    phone =rows[3].ToString(),
-                                    gender = rows[4].ToString(),
-                                    bhirtdate = Convert.ToDateTime(rows[5].ToString()),
-                                    bhirtplace = rows[6].ToString(),
-                                    position = rows[7].ToString(),
-                                    department = rows[8].ToString(),
-                                    address = rows[9].ToString(),
-                                    nameugd1 = rows[10].ToString(),
-                                    emergency1 = rows[11].ToString(),
-                                    nameugd2 = rows[12].ToString(),
-                                    emergency2 = rows[13].ToString(),
-                                    nameugd3 = rows[14].ToString(),
-                                    emergency3 = rows[15].ToString(),
-                                    status = rows[16].ToString(),
-                                    contract = Convert.ToDateTime(rows[17].ToString()),
+                                    cv = rows[1].ToString(),
+                                    photo = rows[2].ToString(),
+                                    email = rows[3].ToString(),
+                                    phone =rows[4].ToString(),
+                                    gender = rows[5].ToString(),
+                                    bhirtdate = Convert.ToDateTime(rows[6].ToString()),
+                                    bhirtplace = rows[7].ToString(),
+                                    position = rows[8].ToString(),
+                                    department = rows[9].ToString(),
+                                    address = rows[10].ToString(),
+                                    nameugd1 = rows[11].ToString(),
+                                    emergency1 = rows[12].ToString(),
+                                    nameugd2 = rows[13].ToString(),
+                                    emergency2 = rows[14].ToString(),
+                                    nameugd3 = rows[15].ToString(),
+                                    emergency3 = rows[16].ToString(),
+                                    status = rows[17].ToString(),
+                                    contract = Convert.ToDateTime(rows[18].ToString()),
 
                                 };
                                 _appdbcontext.employees.Add(emp);
@@ -246,6 +385,7 @@ namespace HR_App.Controllers
                         return Redirect("Index");
         }
 
+        [Authorize]
         public IActionResult Information(Guid id)
         {
             var x = from i in _appdbcontext.employees where i.id == id select i;
@@ -253,6 +393,7 @@ namespace HR_App.Controllers
             return View("Information");
         }
 
+        [Authorize]
         public IActionResult Delete(Guid id)
         {
             var x = _appdbcontext.employees.Find(id);
@@ -261,6 +402,7 @@ namespace HR_App.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize]
         public IActionResult Edit(Guid id)
         {
             var x = from i in _appdbcontext.employees where i.id == id select i;
@@ -268,6 +410,7 @@ namespace HR_App.Controllers
             return View();
         }
 
+        [Authorize]
         public IActionResult Warning(Guid id)
         {
             var x = _appdbcontext.employees.Find(id);
@@ -287,52 +430,140 @@ namespace HR_App.Controllers
                 {
                     emailClient.ServerCertificateValidationCallback = (s, c, h, e) => true;
                     emailClient.Connect("smtp.mailtrap.io", 587, false);
-                    emailClient.Authenticate("c2dd5c9169381f", "8d33632650e24e");
+                    emailClient.Authenticate("e9bc7468600966", "089a1123f99e29");
                     emailClient.Send(message);
                     emailClient.Disconnect(true);
                 }
             return RedirectToAction("Index");
         }
 
-        public IActionResult Editor(Guid id, string name, string email, IFormFile photo, string phone, string gender, DateTime bhirtdate, string bhirtplace, string position, string department, string address, string nameugd1, string nameugd2, string nameugd3, string emergency1, string emergency2, string emergency3, string status, DateTime contract)
+        [Authorize]
+        public IActionResult Editor(Guid id, string name, string email,IFormFile cv, IFormFile photo, string phone, string gender, DateTime date, string place, string position, string department, string address, string nameugd1, string nameugd2, string nameugd3, string emergency1, string emergency2, string emergency3, string status, DateTime contract)
         {
-            var path = "wwwroot//images";
-            Directory.CreateDirectory(path);
-            var FileName= Path.Combine(path, Path.GetFileName(photo.FileName));
-            photo.CopyTo(new FileStream(FileName, FileMode.Create));
-            var file = FileName.Substring(8).Replace(@"\","/");
-            var i = from y in _appdbcontext.employees where y.id == id select y;
-            foreach (var x in i)
+            Console.WriteLine(id);
+            if ( photo != null && cv != null)
             {
-                x.name = name;
-                x.email = email;
-                x.photo = file;
-                x.phone = phone;
-                x.gender = gender;
-                x.bhirtdate = bhirtdate;
-                x.bhirtplace = bhirtplace;
-                x.position = position;
-                x.department = department;
-                x.address = address;
-                x.nameugd1 = nameugd1;
-                x.nameugd2 = nameugd2;
-                x.nameugd3 = nameugd3;
-                x.emergency1 = emergency1;
-                x.emergency2 = emergency2;
-                x.emergency3 = emergency3;
-                x.status = status;
-                x.contract = contract;
+                var path1 = "wwwroot//cv";
+                Directory.CreateDirectory(path1);
+                var FileName1= Path.Combine(path1, Path.GetFileName(cv.FileName));
+                cv.CopyTo(new FileStream(FileName1, FileMode.Create));
+                var file1 = FileName1.Substring(8).Replace(@"\","/");
+                var path = "wwwroot//images";
+                Directory.CreateDirectory(path);
+                var FileName= Path.Combine(path, Path.GetFileName(photo.FileName));
+                photo.CopyTo(new FileStream(FileName, FileMode.Create));
+                var file = FileName.Substring(8).Replace(@"\","/");
+                var i = _appdbcontext.employees.Find(id);
+                    i.name = name;
+                    i.email = email;
+                    i.cv = file1;
+                    i.photo = file;
+                    i.phone = phone;
+                    i.gender = gender;
+                    i.bhirtdate = date;
+                    i.bhirtplace = place;
+                    i.position = position;
+                    i.department = department;
+                    i.address = address;
+                    i.nameugd1 = nameugd1;
+                    i.nameugd2 = nameugd2;
+                    i.nameugd3 = nameugd3;
+                    i.emergency1 = emergency1;
+                    i.emergency2 = emergency2;
+                    i.emergency3 = emergency3;
+                    i.status = status;
+                    i.contract = contract;
+                _appdbcontext.SaveChanges();
             }
-            _appdbcontext.SaveChanges();
+            else if (photo == null && cv != null)
+            {
+                var path1 = "wwwroot//cv";
+                Directory.CreateDirectory(path1);
+                var FileName1= Path.Combine(path1, Path.GetFileName(cv.FileName));
+                cv.CopyTo(new FileStream(FileName1, FileMode.Create));
+                var file1 = FileName1.Substring(8).Replace(@"\","/");
+                var i = _appdbcontext.employees.Find(id);
+                    i.name = name;
+                    i.cv = file1;
+                    i.email = email;
+                    i.phone = phone;
+                    i.gender = gender;
+                    i.bhirtdate = date;
+                    i.bhirtplace = place;
+                    i.position = position;
+                    i.department = department;
+                    i.address = address;
+                    i.nameugd1 = nameugd1;
+                    i.nameugd2 = nameugd2;
+                    i.nameugd3 = nameugd3;
+                    i.emergency1 = emergency1;
+                    i.emergency2 = emergency2;
+                    i.emergency3 = emergency3;
+                    i.status = status;
+                    i.contract = contract;
+                    _appdbcontext.SaveChanges();
+            }
+            else if (photo != null && cv == null)
+            {
+                var path = "wwwroot//images";
+                Directory.CreateDirectory(path);
+                var FileName= Path.Combine(path, Path.GetFileName(photo.FileName));
+                photo.CopyTo(new FileStream(FileName, FileMode.Create));
+                var file = FileName.Substring(8).Replace(@"\","/");
+                var i = _appdbcontext.employees.Find(id);
+                    i.name = name;
+                    i.photo = file;
+                    i.email = email;
+                    i.phone = phone;
+                    i.gender = gender;
+                    i.bhirtdate = date;
+                    i.bhirtplace = place;
+                    i.position = position;
+                    i.department = department;
+                    i.address = address;
+                    i.nameugd1 = nameugd1;
+                    i.nameugd2 = nameugd2;
+                    i.nameugd3 = nameugd3;
+                    i.emergency1 = emergency1;
+                    i.emergency2 = emergency2;
+                    i.emergency3 = emergency3;
+                    i.status = status;
+                    i.contract = contract;
+                    _appdbcontext.SaveChanges();
+            }
+            else if (photo == null && cv == null)
+            {
+                var i = _appdbcontext.employees.Find(id);
+                    i.name = name;
+                    i.email = email;
+                    i.phone = phone;
+                    i.gender = gender;
+                    i.bhirtdate = date;
+                    i.bhirtplace = place;
+                    i.position = position;
+                    i.department = department;
+                    i.address = address;
+                    i.nameugd1 = nameugd1;
+                    i.nameugd2 = nameugd2;
+                    i.nameugd3 = nameugd3;
+                    i.emergency1 = emergency1;
+                    i.emergency2 = emergency2;
+                    i.emergency3 = emergency3;
+                    i.status = status;
+                    i.contract = contract;
+                    _appdbcontext.SaveChanges();
+            }
             return RedirectToAction("Index");
         }
 
+        [Authorize]
         public IActionResult ExportId(string search)
         {
             var colom = new string[]
             {
                 "id",
                 "name",
+                "cv",
                 "photo",
                 "email",
                 "phone",
@@ -355,6 +586,7 @@ namespace HR_App.Controllers
             {
                 i.id,
                 i.name,
+                i.cv,
                 i.photo,
                 i.email,
                 i.phone,

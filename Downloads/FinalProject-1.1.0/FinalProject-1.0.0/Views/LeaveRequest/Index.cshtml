@@ -1,22 +1,313 @@
-<a href="/LeaveRequest/Add" class="btn btn-primary">Add Leave Request</a>
-
 @{
-    var x = ViewBag.leave;
-    foreach (var i in x)
-    {
-        if (i.status != "reject")
+    ViewData["Title"] = "Home Page";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Arimo:400,700&display=swap">
+<style>
+body{
+  font-family: 'Arimo', sans-serif;
+}
+h2{
+  color:#000;
+  text-align:center;
+  font-size:2em;
+}
+.warpper{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+}
+.tab{
+  cursor: pointer;
+  padding:20px 100px;
+  margin:0px 10px;
+  background:#000;
+  display:inline-block;
+  color:#fff;
+  border-radius:3px 3px 0px 0px;
+  box-shadow: 0 0.5rem 0.8rem #00000080;
+}
+.panels{
+  background:#fff;
+  box-shadow: 0 2rem 2rem #00000080;
+  min-height:375px;
+  width:100%;
+  max-width:1200px;
+  border-radius:3px;
+  overflow:hidden;
+  padding:20px;  
+}
+.panel{
+  display:none;
+  animation: fadein .8s;
+}
+.panel-title{
+  font-size:1.5em;
+  font-weight:bold
+}
+.radio{
+  display:none;
+}
+#one:checked ~ .panels #one-panel,
+#two:checked ~ .panels #two-panel,
+#three:checked ~ .panels #three-panel{
+  display:block
+}
+#one:checked ~ .tabs #one-tab,
+#two:checked ~ .tabs #two-tab,
+#three:checked ~ .tabs #three-tab{
+  background:#fff;
+  color:#000;
+  border-top: 3px solid #000;
+}
+
+* {box-sizing: border-box}
+
+/* Set height of body and the document to 100% */
+body, html {
+  height: 100%;
+  margin: 0;
+  font-family: Arial;
+}
+
+/* Style tab links */
+.tablink {
+  background-color: #555;
+  color: white;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  font-size: 17px;
+  width: 33.33%;
+}
+
+.tablink:hover {
+  background-color: #777;
+}
+
+/* Style the tab content (and add height:100% for full page content) */
+.tabcontent {
+  color: white;
+  display: none;
+  padding: 100px 20px;
+  height: 100%;
+}
+
+#News {background-color: green;}
+#Contact {background-color: teal;}
+#About {background-color: orange;}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+      <div class="text-center">
+      <h1><b>Leave Request System</b></h1>
+      <p>Be Carefuly with Employees Permition</p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+      <form method="GET">
+        <div class="form-group">
+          @{
+          var k = ViewBag.search;
+          <input class="form-control" id="search" name="search" placeholder="Searching for. . ." value=@k>
+          }
+          <div class="text-center">
+            <br>
+          <button asp-action="Index" asp-controller="LeaveRequest" class="btn btn-outline-info">Search</button>
+          <button asp-action="ExportId" asp-controller="LeaveRequest" class="btn btn-outline-info">Export</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<br>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-8">
+        <a href="/LeaveRequest/Add" class="btn btn-info">Add Leave Request</a>
+        <a href="/LeaveRequest/Export" class="btn btn-info">Export (All)</a>
+    </div>
+  </div>
+</div>
+<br>
+<br>
+
+<div class="warpper">
+  <input class="radio" id="one" name="group" type="radio" checked>
+  <input class="radio" id="two" name="group" type="radio">
+  <input class="radio" id="three" name="group" type="radio">
+  <div class="tabs">
+  <label class="tab" id="one-tab" for="one">Submitted</label>
+  <label class="tab" id="two-tab" for="two">Allowed</label>
+  <label class="tab" id="three-tab" for="three">Rejected</label>
+  </div>
+  <div class="panels">
+  <div class="panel" id="one-panel">
+    <ul class="list-group">
+    @{
+        var x = ViewBag.emp;
+        foreach (var i in x)
         {
-        @i.name
-        @i.position
-        @i.department
-        @i.outtime
-        @i.intime
-        @i.status
-        if(i.status != "allowed")
-        {
-           <a href="/LeaveRequest/Allow/@i.id" class="btn btn-success">Allow</a>
-           <a href="/LeaveRequest/Reject/@i.id" class="btn btn-danger">Reject</a>
-        }
+            if( i.status == "submitted")
+            {
+                <li class="list-group-item">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-md-3">
+                    Name: @i.name
+                    </div>
+                    <div class="col-md-5">
+                    Outtime: @i.outtime
+                    </div>
+                    <div class="col-md-3">
+                    Intime: @i.intime
+                    </div>
+                    <div class="col-md-1">
+                    <a href='/LeaveRequest/Information/@i.id' class="btn btn-outline-warning">Info</a>
+                    </div>
+                  </div>
+                </div>
+                </li>
+                <br>
+            }
         }
     }
+    </ul>
+  </div>
+  <div class="panel" id="two-panel">
+    <ul class="list-group">
+    @{
+        var y = ViewBag.emp1;
+        foreach (var i in y)
+        {
+            if( i.status == "allowed")
+            {
+                <li class="list-group-item">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-md-3">
+                    Name: @i.name
+                    </div>
+                    <div class="col-md-5">
+                    Outtime: @i.outtime
+                    </div>
+                    <div class="col-md-3">
+                    Intime: @i.intime
+                    </div>
+                    <div class="col-md-1">
+                    <a href='/LeaveRequest/Information/@i.id' class="btn btn-outline-warning">Info</a>
+                    </div>
+                  </div>
+                </div>
+                </li>
+                <br>
+            }
+        }
+    }
+    </ul>
+  </div>
+  <div class="panel" id="three-panel">
+    <ul class="list-group">
+    @{
+        var z = ViewBag.emp2;
+        foreach (var i in z)
+        {
+            if( i.status == "rejected")
+            {
+               <li class="list-group-item">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-md-3">
+                    Name: @i.name
+                    </div>
+                    <div class="col-md-5">
+                    Outtime: @i.outtime
+                    </div>
+                    <div class="col-md-3">
+                    Intime: @i.intime
+                    </div>
+                    <div class="col-md-1">
+                    <a href='/LeaveRequest/Information/@i.id' class="btn btn-outline-warning">Info</a>
+                    </div>
+                  </div>
+                </div>
+                </li>
+                <br>
+            }
+        }
+    }
+    </ul>
+  </div>
+  </div>
+</div>
+<br>
+<br>
+
+<div class="container">
+<div class="column">
+<div class="col-lg-12 col-sm-5">
+<nav aria-label="...">
+  <ul class="pagination justify-content-center">
+    @{
+      var paging = ViewBag.page;
+    <li class="page-item"><button class="page-link" value="1" id="btn1" onclick="javascript:page1(this)">1</button></li>
+    <li class="page-item"><button class="page-link" value="2" id="btn2" onclick="javascript:page2(this)">2</button></li>
+    <li class="page-item"><button class="page-link" value="3" id="btn3" onclick="javascript:page3(this)">3</button></li>
+    <li class="page-item"><button class="page-link" value="4" id="btn4" onclick="javascript:page4(this)">4</button></li>
+    <li class="page-item"><button class="page-link" value="5" id="btn5" onclick="javascript:page5(this)">5</button></li>
+    <li class="page-item"><button class="page-link" value="6" id="btn6" onclick="javascript:page6(this)">6</button></li>
+    }
+  </ul>
+
+</body>
+</html>
+
+<script type="text/javascript">
+function page1(btn)
+{
+  var search = document.getElementById("search").value;
+  location.href='/LeaveRequest/Index?_crntpage=1&search='+search;
 }
+function page2(btn)
+{
+  var search = document.getElementById("search").value;
+  location.href='/LeaveRequest/Index?_crntpage=2&search='+search;
+}
+function page3(btn)
+{
+  var search = document.getElementById("search").value;
+  location.href='/LeaveRequest/Index?_crntpage=3&search='+search;
+}
+function page4(btn)
+{
+  var search = document.getElementById("search").value;
+  location.href='/LeaveRequest/Index?_crntpage=4&search='+search;
+}
+function page5(btn)
+{
+  var search = document.getElementById("search").value;
+  location.href='/LeaveRequest/Index?_crntpage=5&search='+search;
+}
+function page6(btn)
+{
+  var search = document.getElementById("search").value;
+  location.href='/LeaveRequest/Index?_crntpage=6&search='+search;
+}
+</script>

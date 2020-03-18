@@ -15,6 +15,7 @@ using System.Net.Mail;
 using MimeKit;
 using MailKit.Net.Smtp;
 using MailKit;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HR_App.Controllers
 {
@@ -29,15 +30,17 @@ namespace HR_App.Controllers
             _appdbcontext = appDbContext;
         }
         
+        [Authorize]
         public IActionResult Index()
         {
-            var x = from i in _appdbcontext.broadcasts select i;
+            var x = from i in _appdbcontext.broadcasts.OrderByDescending(a => a.date) select i;
             ViewBag.broad = x;
-            var y = (from i in _appdbcontext.leaves where i.status == "submited" select i).Count();
+            var y = (from i in _appdbcontext.leaves where i.status == "submitted" select i).Count();
             ViewBag.count = y;
             return View();
         }
 
+        [Authorize]
         public IActionResult Add(string title, string body)
         {
             Broadcast broad = new Broadcast()
@@ -63,7 +66,7 @@ namespace HR_App.Controllers
                 {
                     emailClient.ServerCertificateValidationCallback = (s, c, h, e) => true;
                     emailClient.Connect("smtp.mailtrap.io", 587, false);
-                    emailClient.Authenticate("c2dd5c9169381f", "8d33632650e24e");
+                    emailClient.Authenticate("e9bc7468600966", "089a1123f99e29");
                     emailClient.Send(message);
                     emailClient.Disconnect(true);
                 }
